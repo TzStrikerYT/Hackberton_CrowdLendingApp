@@ -21,6 +21,10 @@ class User(db.Model):
         self.email = email
         self.pwd = pwd
 
+    def __repr__(self):
+        """Return a good representation"""
+        return '<User {}: password = {}>'.format(self.first_name, self.pwd)
+
     def save(self):
         """Save the new object into the data base"""
         db.session.add(self)

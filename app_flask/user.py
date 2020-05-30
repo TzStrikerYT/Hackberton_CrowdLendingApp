@@ -2,10 +2,7 @@
 """
 Create the user of the APP
 """
-from flask_sqlalchemy import SQLAlchemy
-from app_flask.login_app import app
-
-db = SQLAlchemy(app)
+from login_app import db
 
 class User(db.Model):
     """Class to make the querys to the database"""
@@ -28,3 +25,5 @@ class User(db.Model):
         """Save the new object into the data base"""
         db.session.add(self)
         db.session.commit()
+
+db.create_all()

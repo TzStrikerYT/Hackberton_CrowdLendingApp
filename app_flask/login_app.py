@@ -42,18 +42,18 @@ def home():
 def login():
     """Make the login"""
     if 'username' in session:
-        print(session)
         return redirect(url_for('home'))
 
     elif request.method == "POST":
 
         username = request.form['username']
         password = request.form["password"]
-
-        session['username'] = username
+        
         userLog = user.User.query.filter_by(email=username).first()
+        print(userLog)
         try:
             if userLog.pwd == password:
+                session['username'] = username
                 return redirect(url_for("home"))
         except:
             return "Your email or password is wrong", 200
@@ -72,4 +72,4 @@ def register():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5001")

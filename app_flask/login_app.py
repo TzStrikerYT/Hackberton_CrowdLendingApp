@@ -48,9 +48,9 @@ def login():
 
         username = request.form['username']
         password = request.form["password"]
-        
+
         userLog = user.User.query.filter_by(email=username).first()
-        print(userLog)
+
         try:
             if userLog.pwd == password:
                 session['username'] = username
@@ -68,7 +68,27 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Make the register"""
-    return "profile template", 200
+    if request.method == "POST":
+        names = request.form["names"]
+        last_names = request.form["lastNames"]
+        email = request.form["email"]
+        password = request.form["password"]
+        confirmPwd = request.form["confirmPassword"]
+
+        if password != confirmPwd:
+            return "The password and the confimation not make match", 200
+
+        allUsers = [user.email for user in user.User.query.all()]
+
+        if email in allUsers:
+            return "The email alredy exists", 200
+        else:
+            newUser = user.User(names, last_names, email, password)
+            newUser.save()
+            session["username"] = email
+            return redirect(url_for('home'))
+
+    return render_template("register.html")
 
 
 if __name__ == "__main__":

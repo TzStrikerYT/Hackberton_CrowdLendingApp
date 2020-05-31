@@ -23,7 +23,7 @@ app.secret_key = 'esto-es-una-clave-secreta'
 @app.errorhandler(404)
 def not_found(error):
     """If the route not is there"""
-    return "Page Not Found", 404
+    return render_template('404.html'), 404
 
 
 @app.before_request

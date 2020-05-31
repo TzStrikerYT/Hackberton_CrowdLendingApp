@@ -3,7 +3,10 @@
 Create the log in and the register of users
 """
 import user
-from flask import Flask, render_template, request, session, redirect, url_for, g
+from flask import (
+    Flask, render_template,
+    request, session,
+    redirect, url_for, g)
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import md5
 
@@ -15,11 +18,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'esto-es-una-clave-secreta'
 
+
 # Rutes
 @app.errorhandler(404)
 def not_found(error):
     """If the route not is there"""
     return "Page Not Found", 404
+
 
 @app.before_request
 def before_request():
@@ -27,8 +32,10 @@ def before_request():
     g.user = None
 
     if 'username' in session:
-        sessionUser = user.User.query.filter_by(email=session['username']).first()
+        sessionUser = user.User.query.filter_by(
+            email=session['username']).first()
         g.user = sessionUser
+
 
 @app.route("/i", strict_slashes=False)
 def home():
@@ -37,6 +44,7 @@ def home():
         return redirect(url_for('login'))
     else:
         return "You are in", 200
+
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)
 @app.route("/login", methods=["GET", "POST"], strict_slashes=False)
@@ -63,10 +71,12 @@ def login():
 
     return render_template("login.html")
 
+
 @app.route("/logout")
 def logout():
     session.pop('username')
     return redirect(url_for('login'))
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

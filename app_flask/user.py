@@ -4,6 +4,7 @@ Create the user of the APP
 """
 from login_app import db
 
+
 class User(db.Model):
     """Class to make the querys to the database"""
     __tablename__ = 'users'

@@ -5,6 +5,7 @@ Create the log in and the register of users
 import user
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
+from hashlib import md5
 
 # Creacion de la API
 app = Flask(__name__)
@@ -49,10 +50,11 @@ def login():
         username = request.form['username']
         password = request.form["password"]
 
+        md5PwdConfirm = md5(password.encode('utf-8')).hexdigest()
         userLog = user.User.query.filter_by(email=username).first()
 
         try:
-            if userLog.pwd == password:
+            if userLog.pwd == md5PwdConfirm:
                 session['username'] = username
                 return redirect(url_for("home"))
         except:
@@ -83,7 +85,8 @@ def register():
         if email in allUsers:
             return "The email alredy exists", 200
         else:
-            newUser = user.User(names, last_names, email, password)
+            md5Pwd = md5(password.encode('utf-8')).hexdigest()
+            newUser = user.User(names, last_names, email, md5Pwd)
             newUser.save()
             session["username"] = email
             return redirect(url_for('home'))

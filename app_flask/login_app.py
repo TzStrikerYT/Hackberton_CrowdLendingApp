@@ -57,6 +57,7 @@ def login():
             if userLog.pwd == md5PwdConfirm:
                 session['username'] = username
                 return redirect(url_for("home"))
+            return "Your email or password is wrong", 200
         except:
             return "Your email or password is wrong", 200
 
@@ -76,6 +77,15 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
         confirmPwd = request.form["confirmPassword"]
+
+        print("this is names:", names)
+        print("this is the len", len(names))
+        print("this is email:", email)
+        params = [names, last_names, email, password, confirmPwd]
+
+        for n in params:
+            if len(n) is 0:
+                return "Please fill all elements", 200
 
         if password != confirmPwd:
             return "The password and the confimation not make match", 200

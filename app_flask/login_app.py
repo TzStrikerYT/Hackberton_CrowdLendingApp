@@ -9,6 +9,7 @@ from flask import (
     redirect, url_for, g)
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import md5
+import requests
 
 # Creacion de la API
 app = Flask(__name__)
@@ -79,7 +80,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/logout")
+@app.route("/logout", strict_slashes=False)
 def logout():
     session.pop('username')
     return redirect(url_for('login'))
@@ -121,6 +122,67 @@ def register():
 
     return render_template("register.html")
 
+# Make a login and register like a rappitender
+@app.route("/login-rt", methods=['GET', 'POST'], strict_slashes=False)
+def rappi_login():
+    """Make a login and register since rappi api"""
+
+    if 'username' in session:
+        return redirect(url_for('home'))
+
+    elif request.method == "POST":
+
+        username = request.form['username']
+        password = request.form["password"]
+
+        url = 'http://microservices.dev.rappi.com/api/login/storekeeper'
+        headers = {
+            'uuid':'550e8400-e29b-41d4-a716-4466554400001234567',
+            'platform':'2',
+            'Content-Type': 'application/json'
+        }
+        rappitender = {
+            "client_id":"74HzD01JbhZ44iE1kh7Gt6dfNjEKrtWiz0FqTUDQ",
+            "client_secret":"W8dOKF1mdHaG9wBNyoOCEBgHajO66GEl81lTDu2P",
+            "username":username,
+            "password":password,
+            "scope":"all"
+
+        }
+
+        r = requests.post(url, headers=headers, json=rappitender)
+
+        try:
+            response = r.json()
+        except:
+            print("Not a valid json, pls verificate the request")
+            return "The response cant be convert to JSON", 400
+
+        url_profile = 'http://microservices.dev.rappi.com/api/storekeepers-ms/storekeeper/rappitendero/profile?cache=false'
+        auth = response.get('token_type') + " " + response.get('access_token')
+        header_profile = {
+            'Content-Type': 'application/json',
+            'Authorization': auth
+        }
+        rt = requests.get(url_profile, headers=header_profile)
+        try:
+            rt_response = rt.json()
+        except:
+            print("Not a valid json in the rt request with the token")
+            return "Not a valid json in the rt request with the token", 400
+
+        userLog = user.User.query.filter_by(email=rt_response.get('email')).first()
+
+        if userLog is None:
+            newUser = user.User(rt_response.get('first_name'),
+                                rt_response.get('last_name'),
+                                rt_response.get('email'), "")
+            newUser.save()
+
+        session['username'] = rt_response.get('email')
+        return redirect(url_for('home')) # This redirection need be changed
+
+    return render_template("login_rt.html") #This template needs be changed
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5001")

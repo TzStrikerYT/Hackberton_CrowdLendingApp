@@ -123,7 +123,7 @@ def register():
     return render_template("register.html")
 
 # Make a login and register like a rappitender
-@app.route("/login-rt", methods=['GET', 'POST'], strict_slashes=False)
+@app.route("/login_rt", methods=['GET', 'POST'], strict_slashes=False)
 def rappi_login():
     """Make a login and register since rappi api"""
 
@@ -135,52 +135,76 @@ def rappi_login():
         username = request.form['username']
         password = request.form["password"]
 
-        url = 'http://microservices.dev.rappi.com/api/login/storekeeper'
-        headers = {
-            'uuid':'550e8400-e29b-41d4-a716-4466554400001234567',
-            'platform':'2',
-            'Content-Type': 'application/json'
-        }
-        rappitender = {
-            "client_id":"74HzD01JbhZ44iE1kh7Gt6dfNjEKrtWiz0FqTUDQ",
-            "client_secret":"W8dOKF1mdHaG9wBNyoOCEBgHajO66GEl81lTDu2P",
-            "username":username,
-            "password":password,
-            "scope":"all"
+        params = [username, password]
+        for n in params:
+            if len(n) is 0:
+                error = True
+                return render_template("login_rt.html", error_fill=error)
 
-        }
+        url_courier = 'http://microservices.dev.rappi.com/api/rt-auth-helper/user/type?email={}'.format(username)
 
-        r = requests.post(url, headers=headers, json=rappitender)
+        cou = requests.get(url_courier)
 
         try:
-            response = r.json()
+            is_rt = cou.json()
         except:
-            print("Not a valid json, pls verificate the request")
-            return "The response cant be convert to JSON", 400
+            print("Not valid JSON")
 
-        url_profile = 'http://microservices.dev.rappi.com/api/storekeepers-ms/storekeeper/rappitendero/profile?cache=false'
-        auth = response.get('token_type') + " " + response.get('access_token')
-        header_profile = {
-            'Content-Type': 'application/json',
-            'Authorization': auth
-        }
-        rt = requests.get(url_profile, headers=header_profile)
-        try:
-            rt_response = rt.json()
-        except:
-            print("Not a valid json in the rt request with the token")
-            return "Not a valid json in the rt request with the token", 400
+        print(is_rt.get('user_type'))
+        if is_rt.get('user_type') == "courier":
 
-        userLog = user.User.query.filter_by(email=rt_response.get('email')).first()
+            url = 'http://microservices.dev.rappi.com/api/login/storekeeper'
+            headers = {
+                'uuid':'550e8400-e29b-41d4-a716-4466554400001234567',
+                'platform':'2',
+                'Content-Type': 'application/json'
+            }
+            rappitender = {
+                "client_id":"74HzD01JbhZ44iE1kh7Gt6dfNjEKrtWiz0FqTUDQ",
+                "client_secret":"W8dOKF1mdHaG9wBNyoOCEBgHajO66GEl81lTDu2P",
+                "username":username,
+                "password":password,
+                "scope":"all"
+            }
 
-        if userLog is None:
-            newUser = user.User(rt_response.get('first_name'),
-                                rt_response.get('last_name'),
-                                rt_response.get('email'), "")
-            newUser.save()
+            r = requests.post(url, headers=headers, json=rappitender)
 
-        session['username'] = rt_response.get('email')
-        return redirect(url_for('home')) # This redirection need be changed
+            try:
+                response = r.json()
+            except:
+                print("Not a valid json, pls verificate the request")
+                return "The response cant be convert to JSON", 400
+
+            if response.get('error') is not None:
+                error = True
+                return render_template("login_rt.html", error_pwd=error)
+
+            url_profile = 'http://microservices.dev.rappi.com/api/storekeepers-ms/storekeeper/rappitendero/profile?cache=false'
+            auth = response.get('token_type') + " " + response.get('access_token')
+            header_profile = {
+                'Content-Type': 'application/json',
+                'Authorization': auth
+            }
+            rt = requests.get(url_profile, headers=header_profile)
+            try:
+                rt_response = rt.json()
+            except:
+                print("Not a valid json in the rt request with the token")
+                return "Not a valid json in the rt request with the token", 400
+
+            userLog = user.User.query.filter_by(email=rt_response.get('email')).first()
+
+            if userLog is None:
+                newUser = user.User(rt_response.get('first_name'),
+                                    rt_response.get('last_name'),
+                                    rt_response.get('email'), "")
+                newUser.save()
+
+            session['username'] = rt_response.get('email')
+            return redirect(url_for('home')) # This redirection need be changed
+        else:
+            error = True
+            return render_template("login_rt.html", error_rt=error)
 
     return render_template("login_rt.html") #This template needs be changed
 

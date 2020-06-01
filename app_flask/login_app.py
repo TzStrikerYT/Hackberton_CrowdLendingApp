@@ -94,7 +94,7 @@ def register():
         params = [names, last_names, email, password, confirmPwd]
 
         for n in params:
-            if len(n) is 0:
+            if len(n) == 0:
                 return "Please fill all elements", 200
 
         if password != confirmPwd:

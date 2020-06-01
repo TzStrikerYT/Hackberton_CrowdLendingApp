@@ -58,6 +58,13 @@
 			   </label>
 		      </div> -->
 
+		      {% if error_pwd %}
+		      <h4>La contrasena o el correo no coinciden</h4>
+		      {% endif %}
+		      {% if error_fill %}
+		      <h4>Por favor ingresa todos los campos</h4>
+		      {% endif %}
+
 		      <div class="container-login100-form-btn">
 			<button class="login100-form-btn">
 			  Ingresar

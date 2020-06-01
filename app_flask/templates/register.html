@@ -65,12 +65,26 @@
                         <span class="focus-input100" data-placeholder="&#xf191;"></span>
                       </div>
 
+		      {% if error %}
+		      <div>La contrasenas no coinciden</div>
+		      {% endif %}
+
 		      <!-- <div class="contact100-form-checkbox">
 			   <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 			   <label class="label-checkbox100" for="ckb1">
 			     Remember me
 			   </label>
 		      </div> -->
+
+		      {% if error_params %}
+		      <h4>Por favor llene todos los campos</h4>
+		      {% endif %}
+		      {% if error_match %}
+		      <h4>Las contrasenas ingresadas no coinciden</h4>
+		      {% endif %}
+		      {% if error_exist %}
+		      <h4>El correo usando ya esta ligado a una cuenta</h4>
+		      {% endif %}
 
 		      <div class="container-login100-form-btn">
 			<button class="login100-form-btn">

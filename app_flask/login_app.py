@@ -61,13 +61,20 @@ def login():
         md5PwdConfirm = md5(password.encode('utf-8')).hexdigest()
         userLog = user.User.query.filter_by(email=username).first()
 
+        params = [username, password]
+        for n in params:
+            if len(n) is 0:
+                error = True
+                return render_template("login.html", error_fill=error)
+
         try:
             if userLog.pwd == md5PwdConfirm:
                 session['username'] = username
                 return redirect(url_for("home"))
-            return "Your email or password is wrong", 200
+            error = True
+            return render_template("login.html", error_pwd=error)
         except:
-            return "Your email or password is wrong", 200
+            return render_template("login.html", error_pwd=error)
 
     return render_template("login.html")
 
@@ -88,22 +95,23 @@ def register():
         password = request.form["password"]
         confirmPwd = request.form["confirmPassword"]
 
-        print("this is names:", names)
-        print("this is the len", len(names))
-        print("this is email:", email)
         params = [names, last_names, email, password, confirmPwd]
 
         for n in params:
+
             if len(n) == 0:
-                return "Please fill all elements", 200
+                error = True
+                return render_template("register.html", error_params=error)
 
         if password != confirmPwd:
-            return "The password and the confimation not make match", 200
+            error = True
+            return render_template("register.html", error_match=error)
 
         allUsers = [user.email for user in user.User.query.all()]
 
         if email in allUsers:
-            return "The email alredy exists", 200
+            error = True
+            return render_template("register.html", error_exist=error)
         else:
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
             newUser = user.User(names, last_names, email, md5Pwd)

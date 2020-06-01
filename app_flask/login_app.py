@@ -98,7 +98,8 @@ def register():
         params = [names, last_names, email, password, confirmPwd]
 
         for n in params:
-            if len(n) is 0:
+
+            if len(n) == 0:
                 error = True
                 return render_template("register.html", error_params=error)
 

@@ -2,7 +2,7 @@
 """
 Create the log in and the register of users
 """
-import user
+from app_flask import user
 from flask import (
     Flask, render_template,
     request, session,
@@ -14,7 +14,7 @@ import requests
 # Creacion de la API
 app = Flask(__name__)
 # Coneccion con la base de datos
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/crowdlending'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://rappilending_dev:RappiLending_Dev@localhost:3306/rappilending_dev_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'esto-es-una-clave-secreta'

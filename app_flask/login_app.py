@@ -75,6 +75,7 @@ def login():
             error = True
             return render_template("login.html", error_pwd=error)
         except:
+            error = True
             return render_template("login.html", error_pwd=error)
 
     return render_template("login.html")

@@ -2,7 +2,7 @@
 """
 Create the user of the APP
 """
-from login_app import db
+from app_flask.login_app import db
 
 
 class User(db.Model):

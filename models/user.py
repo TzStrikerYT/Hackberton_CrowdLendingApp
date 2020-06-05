@@ -2,8 +2,8 @@
 """
 Create the user of the APP
 """
-from app_flask.login_app import db
-
+from app_flask import db
+from models.inversion import Inversion
 
 class User(db.Model):
     """Class to make the querys to the database"""
@@ -14,6 +14,7 @@ class User(db.Model):
     last_name = db.Column(db.String(60), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     pwd = db.Column(db.String(255), nullable=False)
+    inversions = db.relationship('Inversion', backref='owner')
 
     def __init__(self, first_name, last_name, email, pwd):
         """Set the columns in atributes"""
@@ -30,5 +31,3 @@ class User(db.Model):
         """Save the new object into the data base"""
         db.session.add(self)
         db.session.commit()
-
-db.create_all()

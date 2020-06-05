@@ -2,23 +2,14 @@
 """
 Create the log in and the register of users
 """
-from app_flask import user
+from models import user
+from app_flask import app
 from flask import (
-    Flask, render_template,
+    render_template,
     request, session,
     redirect, url_for, g)
-from flask_sqlalchemy import SQLAlchemy
 from hashlib import md5
 import requests
-
-# Creacion de la API
-app = Flask(__name__)
-# Coneccion con la base de datos
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://rappilending_dev:RappiLending_Dev@localhost:3306/rappilending_dev_db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-app.secret_key = 'esto-es-una-clave-secreta'
-
 
 # Rutes
 @app.errorhandler(404)
@@ -38,13 +29,13 @@ def before_request():
         g.user = sessionUser
 
 
-@app.route("/i", strict_slashes=False)
+@app.route("/profile", strict_slashes=False)
 def home():
     """The template inside of the app"""
     if not g.user:
         return redirect(url_for('login'))
     else:
-        return "You are in", 200
+        return render_template("home_invest.html")
 
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)

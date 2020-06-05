@@ -32,11 +32,12 @@ def before_request():
 @app.route("/dashboard", strict_slashes=False)
 def home():
     """The template inside of the app"""
-    print(im_rt)
     if not g.user:
         return redirect(url_for('login'))
     else:
-        return render_template("dashboard.html")
+        im_rt = session.get('message')
+        print(im_rt)
+        return render_template("dashboard.html", im_rt=im_rt)
 
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)
@@ -194,8 +195,8 @@ def rappi_login():
                 newUser.save()
 
             session['username'] = rt_response.get('email')
-            im_rt = True
-            return redirect(url_for('home'), im_rt=im_rt) # This redirection need be changed
+            session['message'] = True
+            return redirect(url_for('home')) # This redirection need be changed
         else:
             error = True
             return render_template("login_rt.html", error_rt=error)

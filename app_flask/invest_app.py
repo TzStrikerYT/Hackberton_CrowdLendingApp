@@ -15,16 +15,20 @@ def home_investe():
     """Create a new inversionobject"""
     print("esta es mi session", session)
     if "username" in session:
-        return "this is the aplication to create a new inversion", 200
+        return render_template("inversion.html")
 
     return redirect(url_for("login"))
 
 
-@invest.route("/my_inversions")
+@invest.route("/my_carter")
 def inversions():
     """My inversions"""
-    return "My inversion", 200
+    return "this is my carter", 200
 
+@invest.route("/profile")
+def profile():
+    """ displays profile template """
+    return render_template("user.html")
 
 @invest.route("/logout")
 def logout_invest():

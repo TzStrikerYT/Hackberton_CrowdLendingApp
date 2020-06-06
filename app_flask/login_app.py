@@ -36,8 +36,11 @@ def home():
         return redirect(url_for('login'))
     else:
         im_rt = session.get('message')
-        print(im_rt)
-        return render_template("dashboard.html", im_rt=im_rt)
+        if im_rt is None:
+            username = session.get('username')
+            userObject = user.User.query.filter_by(email=username).first()
+
+        return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
 
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)
@@ -76,9 +79,10 @@ def login():
 
 @app.route("/logout", strict_slashes=False)
 def logout():
-    session.pop('username')
-    if "message" in session:
-        session.pop("message")
+    if "username" in session:
+        session.pop('username')
+        if "message" in session:
+            session.pop("message")
     return redirect(url_for('login'))
 
 
@@ -146,7 +150,6 @@ def rappi_login():
         except:
             print("Not valid JSON")
 
-        print(is_rt.get('user_type'))
         if is_rt.get('user_type') == "courier":
 
             url = 'http://microservices.dev.rappi.com/api/login/storekeeper'

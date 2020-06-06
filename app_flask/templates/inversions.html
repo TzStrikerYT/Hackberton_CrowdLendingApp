@@ -100,11 +100,11 @@
                 <p class="card-category">Digita la informaci&oacute;n requerida por favor</p>
               </div>
               <div class="card-body">
-                <form>
+                <form method="POST">
                   <div class="row">
                     <div class="col-md-5">
                       <div class="form-group">
-                        <label class="bmd-label-floating">Fecha</label>
+                        <label class="bmd-label-floating">{{ date }}</label>
                         <input type="text" class="form-control" disabled>
                       </div>
                     </div>
@@ -112,7 +112,7 @@
                     <div class="col-md-5">
                       <div class="form-group">
                         <label class="bmd-label-floating">Monto Solicitado</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="cash" value="{{request.form.cash}}">
                       </div>
                     </div>
                     <div class="col-md-5">
@@ -126,6 +126,11 @@
                   <div class="clearfix"></div>
                 </form>
               </div>
+              {% if error_inv == True %}
+              <h4>La inversion no se produjo correctamente</h4>
+              {% else %}
+              <h4>La inversion se ha completado exitosamente</h4>
+              {% endif %}
             </div>
           </div>
           <div class="col-md-4">
@@ -159,11 +164,11 @@
                   <p class="card-category">Digita la informaci&oacute;n requerida por favor</p>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form method="POST">
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Fecha</label>
+                          <label class="bmd-label-floating">{{ date }}</label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -171,7 +176,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Monto de la inversi&oacute;n</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="cash">
                         </div>
                       </div>
                     </div>
@@ -179,6 +184,11 @@
                     <div class="clearfix"></div>
                   </form>
                 </div>
+                {% if error_inv == True %}
+                <h4>La inversion no se produjo correctamente</h4>
+                {% elif error_inv == False %}
+                <h4>La inversion se ha completado exitosamente</h4>
+                {% endif %}
               </div>
             </div>
             <div class="col-md-4">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8" />
@@ -15,26 +15,48 @@
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="rappi" data-background-color="white" data-image="../static/GUI/img/sidebar-1.jpg">
+    {% if im_rt == True %}
+    <div class="sidebar" data-color="rt" data-background-color="white" data-image="../static/GUI/img/sidebar-1.jpg">
+    {% else %}
+    <div class="sidebar" data-color="rappi" data-background-color="white" data-image="../static/GUI/img/sidebar-1.jpg">  
+    {% endif %}  
       <div class="logo"><a href="./dashboard.html" class="simple-text logo-normal">
           Rappi Lending
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+          <!-- jinja statement-->
+          {% if im_rt == True %}
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="/dashboard">
+              <i class="material-icons">account_balance_wallet</i>
+              <p>Mi Prestamo</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/invest/new_inversion">
+              <i class="material-icons">fact_check</i>
+              <p>Solicitar Prestamo</p>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item active  ">
+            <a class="nav-link" href="/dashboard">
               <i class="material-icons">account_balance_wallet</i>
               <p>Mis Inversiones</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./inversions.html">
+            <a class="nav-link" href="/invest/new_inversion">
               <i class="material-icons">trending_up</i>
-              <p>Hacer Inversi&oacute;n</p>
+              <p>Hacer Inversion</p>
             </a>
           </li>
+          {% endif %}
+          <!-- jinja statement end-->
+
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="/invest/profile">
               <i class="material-icons">emoji_people</i>
               <p>Mi Perfil</p>
             </a>

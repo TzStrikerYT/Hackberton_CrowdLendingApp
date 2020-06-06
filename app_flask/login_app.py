@@ -77,6 +77,8 @@ def login():
 @app.route("/logout", strict_slashes=False)
 def logout():
     session.pop('username')
+    if "message" in session:
+        session.pop("message")
     return redirect(url_for('login'))
 
 

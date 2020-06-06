@@ -13,22 +13,24 @@ invest = Blueprint("invest", __name__)
 @invest.route("/new_inversion")
 def home_investe():
     """Create a new inversionobject"""
-    print("esta es mi session", session)
+    im_rt = session.get("message")
     if "username" in session:
-        return render_template("inversion.html")
+        return render_template("inversions.html", im_rt=im_rt)
 
     return redirect(url_for("login"))
 
 
 @invest.route("/my_carter")
 def inversions():
-    """My inversions"""
-    return "this is my carter", 200
+    """ My inversions """
+    im_rt = session.get("message")
+    return render_template("my_carter.html", im_rt=im_rt)
 
 @invest.route("/profile")
 def profile():
     """ displays profile template """
-    return render_template("user.html")
+    im_rt = session.get("message")
+    return render_template("user.html", im_rt=im_rt)
 
 @invest.route("/logout")
 def logout_invest():

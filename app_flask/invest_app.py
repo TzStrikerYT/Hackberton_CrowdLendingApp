@@ -51,6 +51,7 @@ def new_inversion():
 
         if request.method == "POST":
             cash = request.form['cash']
+            print(cash)
             try:
                 currentUser = User.query.filter_by(email=username).first()
                 newInv = Inversion(budget=cash, owner=currentUser)

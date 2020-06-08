@@ -12,13 +12,12 @@ invest = Blueprint("invest", __name__)
 
 @invest.route("/new_inversion", methods=['GET', 'POST'])
 def new_inversion():
-    """Create a new inversionobject"""
+    """Create a new inversion object"""
     from models.inversion import Inversion
     from models.user import User
     
     im_rt = session.get('message')
     if "username" in session:
-        
         username = session.get('username')
         date = datetime.utcnow()
         goodDate = date.strftime('%d-%m-%Y')

@@ -41,7 +41,7 @@ def home():
         if im_rt is None:
             username = session.get('username')
             userObject = user.User.query.filter_by(email=username).first()
-            print(userObject)
+#            print(userObject)
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
         return render_template("dashboard.html", im_rt=im_rt)
 
@@ -127,7 +127,6 @@ def register():
             newUser = user.User(names, last_names, email, md5Pwd, keyGen)
             newUser.save()
             session["username"] = email
-
             return redirect(url_for('emailCheck'))
 
     return render_template("register.html")
@@ -137,7 +136,15 @@ def register():
 def emailCheck():
     """ Check the correct code sended to email """
     info = user.User.query.filter_by(email=session['username']).first()
-    print("info: {}".format(info.reg_cod))
+#    print("info: {}".format(info.reg_cod))
+    if (request.method == 'POST'):
+        if request.form['regCode'] == info.reg_cod:
+            print("Validated")
+            info.validated = True
+            info.save()
+            return redirect(url_for('home'))
+        else:
+            return render_template('checkemail.html', error=True)
     return render_template('checkemail.html', email=session['username'])
 
 

@@ -118,7 +118,7 @@
                     <div class="col-md-5">
                       <div class="form-group">
                         <label class="bmd-label-floating">Motivo De La Solicitud</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="motive">
                       </div>
                     </div>
                   </div>
@@ -127,9 +127,11 @@
                 </form>
               </div>
               {% if error_inv == True %}
-              <h4>La inversion no se produjo correctamente</h4>
-              {% else %}
-              <h4>La inversion se ha completado exitosamente</h4>
+              <h4>Se produjo un error al realizar su Solicitud</h4>
+              <h5>Recuerde que solo puede realizar un prestamo a la vez</h5>
+              {% elif error_inv == False %}
+              <h4>La solicitud ha sido enviada exitosamente.</h4>
+              <h5>Nos pondremos en contacto contigo para darte una respuesta a tu Solicitud</h5>
               {% endif %}
             </div>
           </div>

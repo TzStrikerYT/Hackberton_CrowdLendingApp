@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.register_blueprint(invest, url_prefix="/invest")
 
 # Coneccion con la base de datos
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://rappilending_dev:RappiLending_Dev@localhost:3306/rappilending_dev_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:rootev@localhost:3306/rappilending_dev_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'esto-es-una-clave-secreta'

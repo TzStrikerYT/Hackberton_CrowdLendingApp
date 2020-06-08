@@ -27,7 +27,7 @@ class CommonFound(db.Model):
 
     def add_inversion(self, money):
         """Add the manoy of an inversion"""
-        self.total_money += money;
+        self.total_money += money
         self.update_at = datetime.utcnow()
         db.session.add(self)
         db.session.commit()

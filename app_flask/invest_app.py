@@ -15,7 +15,8 @@ def new_inversion():
     """Create a new inversion object"""
     from models.inversion import Inversion
     from models.user import User
-    
+
+    # Make code for both type users
     im_rt = session.get('message')
     if "username" in session:
         username = session.get('username')
@@ -23,8 +24,30 @@ def new_inversion():
         goodDate = date.strftime('%d-%m-%Y')
 
         if im_rt is True:
-            #Add here the code for add a debt
-            return render_template("inversions.html", im_rt=im_rt)
+            #Add here the code for generate debt with the API
+            if request.method == "POST":
+                the_debt = request.form['cash']
+                reason = request.form['motive']
+
+                #put here the API
+                #curl --location --request POST 'http://microservices.dev.rappi.com/api/manual-dispersion/debt' \
+                #--header 'Content-Type: application/json' \
+                #--data-raw '{"debts":[
+                #    {
+                #    "storekeeper_id":33082,
+                #    "reason": "expired_or_undelivered_sampling",
+                #    "amount":-70000,
+                #    "comment":"Deuda pendiente",
+                #    "orderId":0
+                #    }
+                #],
+                #"user":"delymar.rodriguez@rappi.com",
+                #"user_id":3778
+                #}'
+                
+                return render_template("inversions.html", im_rt=im_rt, date=goodDate, error_inv=False)
+
+            return render_template("inversions.html", im_rt=im_rt, date=goodDate)
 
         if request.method == "POST":
             cash = request.form['cash']

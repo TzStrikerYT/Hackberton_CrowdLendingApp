@@ -58,9 +58,9 @@ def new_inversion():
                 newInv.save()
             except:
                 # Pass this error if the inversion object not is created
-                return render_template("inversions.html", error_inv=True, date=goodDate)
+                return render_template("inversions.html", error_inv=True, date=goodDate, data_user=currentUser)
             # If pass the creation
-            return render_template("inversions.html", error_inv=False, date=goodDate)
+            return render_template("inversions.html", error_inv=False, date=goodDate, data_user=currentUser)
         # If is get method
         return render_template("inversions.html", date=goodDate, data_user=currentUser)
     

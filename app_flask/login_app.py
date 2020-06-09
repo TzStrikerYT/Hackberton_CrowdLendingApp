@@ -70,6 +70,9 @@ def login():
         try:
             if userLog.pwd == md5PwdConfirm:
                 session['username'] = username
+                if userLog.validated == False:
+                    return render_template('login.html', error_validate=True)
+
                 return redirect(url_for("home"))
             error = True
             return render_template("login.html", error_pwd=error)

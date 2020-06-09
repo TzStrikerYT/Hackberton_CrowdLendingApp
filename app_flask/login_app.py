@@ -10,6 +10,8 @@ from flask import (
     redirect, url_for, g)
 from hashlib import md5
 import requests
+from app_flask.mail import sendMail
+import random
 
 # Rutes
 @app.errorhandler(404)
@@ -36,11 +38,13 @@ def home():
         return redirect(url_for('login'))
     else:
         im_rt = session.get('message')
-        if im_rt is None:
-            username = session.get('username')
-            userObject = user.User.query.filter_by(email=username).first()
+        username = session.get('username')
+        userObject = user.User.query.filter_by(email=username).first()
 
-        return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
+        if im_rt is None:
+            return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
+        
+        return render_template("dashboard.html", im_rt=im_rt, debt=userObject.debt)
 
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)
@@ -63,7 +67,6 @@ def login():
             if len(n) is 0:
                 error = True
                 return render_template("login.html", error_fill=error)
-
         try:
             if userLog.pwd == md5PwdConfirm:
                 session['username'] = username
@@ -114,13 +117,37 @@ def register():
             error = True
             return render_template("register.html", error_exist=error)
         else:
+            # SENDING EMAIL CONFIRMATION
+            tipo = 'REG'
+            keyGen = '{}'.format(random.randrange(10**6))
+            data = { 'name': names, 'last_name': last_names, 'code': keyGen }
+#            print("email: {} with data: {} will sended".format(email, data))
+            sendMail(tipo, email, data)
+            # Saving User Info
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
-            newUser = user.User(names, last_names, email, md5Pwd)
+            newUser = user.User(names, last_names, email, md5Pwd, keyGen)
             newUser.save()
             session["username"] = email
-            return redirect(url_for('home'))
+            return redirect(url_for('emailCheck'))
 
     return render_template("register.html")
+
+
+@app.route("/emailcheck", methods=['GET', 'POST'], strict_slashes=False)
+def emailCheck():
+    """ Check the correct code sended to email """
+    info = user.User.query.filter_by(email=session['username']).first()
+#    print("info: {}".format(info.reg_cod))
+    if (request.method == 'POST'):
+        if request.form['regCode'] == info.reg_cod:
+            print("Validated")
+            info.validated = True
+            info.save()
+            return redirect(url_for('home'))
+        else:
+            return render_template('checkemail.html', error=True)
+    return render_template('checkemail.html', email=session['username'])
+
 
 # Make a login and register like a rappitender
 @app.route("/login_rt", methods=['GET', 'POST'], strict_slashes=False)

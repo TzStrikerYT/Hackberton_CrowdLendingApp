@@ -24,7 +24,6 @@ def not_found(error):
 def before_request():
     """Confirm if have a session"""
     g.user = None
-
     if 'username' in session:
         sessionUser = user.User.query.filter_by(
             email=session['username']).first()
@@ -40,7 +39,6 @@ def home():
         im_rt = session.get('message')
         username = session.get('username')
         userObject = user.User.query.filter_by(email=username).first()
-
         if im_rt is None:
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
         
@@ -122,22 +120,20 @@ def register():
             error = True
             return render_template("register.html", error_exist=error)
         else:
-            # SENDING EMAIL CONFIRMATION
             tipo = 'REG'
             keyGen = '{}'.format(random.randrange(10**6))
             data = { 'name': names, 'last_name': last_names, 'code': keyGen }
-#            print("email: {} with data: {} will sended".format(email, data))
             sendMail(tipo, email, data)
-            # Saving User Info
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
             try:
                 newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
             except:
                 return render_template("register.html", error_data=True)
             newUser.save()
+            session["name"] = names
+            session["last_names"] = last_names
             session["emailcheck"] = email
             return redirect(url_for('emailCheck'))
-
     return render_template("register.html")
 
 
@@ -145,21 +141,29 @@ def register():
 def emailCheck():
     """ Check the correct code sended to email """
     info = user.User.query.filter_by(email=session['emailcheck']).first()
-#    print("info: {}".format(info.reg_cod))
     if (request.method == 'POST'):
-        if request.form['regCode'] == info.reg_cod:
-            print("Validated")
-            info.validated = True
+        if ('regCode' in request.form):
+            if request.form['regCode'] == info.reg_cod:
+                info.validated = True
+                info.save()
+                session['username'] = session['emailcheck']
+                session.pop('emailcheck')
+                session.pop('name')
+                session.pop('last_names')
+                return redirect(url_for('home'))
+            else:
+                return render_template('checkemail.html', error=True, email=session['emailcheck'])
+        elif ('Resend' in request.form):
+            tipo = 'REG'
+            keyGen = '{}'.format(random.randrange(10**6))
+            data = { 'name': session['name'], 'last_name': session['last_names'], 'code': keyGen}
+            sendMail(tipo, session['emailcheck'], data)
+            info.reg_cod = keyGen
             info.save()
-            session['username'] = session['emailcheck']
-            session.pop('emailcheck')
-            return redirect(url_for('home'))
-        else:
-            return render_template('checkemail.html', error=True)
+            return render_template('checkemail.html', r_msj=True, email=session['emailcheck'])
     return render_template('checkemail.html', email=session['emailcheck'])
 
 
-# Make a login and register like a rappitender
 @app.route("/login_rt", methods=['GET', 'POST'], strict_slashes=False)
 def rappi_login():
     """Make a login and register since rappi api"""

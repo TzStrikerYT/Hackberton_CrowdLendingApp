@@ -129,7 +129,7 @@ def register():
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
             newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
             newUser.save()
-            session["username"] = email
+            session["emailcheck"] = email
             return redirect(url_for('emailCheck'))
 
     return render_template("register.html")
@@ -145,6 +145,8 @@ def emailCheck():
             print("Validated")
             info.validated = True
             info.save()
+            session['username'] = session['emailcheck']
+            session.pop('emailcheck')
             return redirect(url_for('home'))
         else:
             return render_template('checkemail.html', error=True)

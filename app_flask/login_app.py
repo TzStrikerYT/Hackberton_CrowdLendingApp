@@ -127,7 +127,10 @@ def register():
             sendMail(tipo, email, data)
             # Saving User Info
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
-            newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
+            try:
+                newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
+            except:
+                return render_template("register.html", error_data=True)
             newUser.save()
             session["emailcheck"] = email
             return redirect(url_for('emailCheck'))
@@ -150,7 +153,7 @@ def emailCheck():
             return redirect(url_for('home'))
         else:
             return render_template('checkemail.html', error=True)
-    return render_template('checkemail.html', email=session['username'])
+    return render_template('checkemail.html', email=session['emailcheck'])
 
 
 # Make a login and register like a rappitender

@@ -146,6 +146,10 @@ def emailCheck():
             if request.form['regCode'] == info.reg_cod:
                 info.validated = True
                 info.save()
+                session['username'] = session['emailcheck']
+                session.pop('emailcheck')
+                session.pop('name')
+                session.pop('last_names')
                 return redirect(url_for('home'))
             else:
                 return render_template('checkemail.html', error=True, email=session['emailcheck'])
@@ -153,17 +157,10 @@ def emailCheck():
             tipo = 'REG'
             keyGen = '{}'.format(random.randrange(10**6))
             data = { 'name': session['name'], 'last_name': session['last_names'], 'code': keyGen}
-            sendMail(tipo, session['username'], data)
+            sendMail(tipo, session['emailcheck'], data)
             info.reg_cod = keyGen
             info.save()
-            return render_template('checkemail.html', r_msj=True, email=session['username'])
-    return render_template('checkemail.html', email=session['username'])
-
-            session['username'] = session['emailcheck']
-            session.pop('emailcheck')
-            return redirect(url_for('home'))
-        else:
-            return render_template('checkemail.html', error=True)
+            return render_template('checkemail.html', r_msj=True, email=session['emailcheck'])
     return render_template('checkemail.html', email=session['emailcheck'])
 
 

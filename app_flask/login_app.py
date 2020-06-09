@@ -138,7 +138,7 @@ def register():
 @app.route("/emailcheck", methods=['GET', 'POST'], strict_slashes=False)
 def emailCheck():
     """ Check the correct code sended to email """
-    info = user.User.query.filter_by(email=session['username']).first()
+    info = user.User.query.filter_by(email=session['emailcheck']).first()
 #    print("info: {}".format(info.reg_cod))
     if (request.method == 'POST'):
         if request.form['regCode'] == info.reg_cod:

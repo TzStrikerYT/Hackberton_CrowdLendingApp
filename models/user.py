@@ -17,16 +17,18 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     pwd = db.Column(db.String(255), nullable=False)
     document = db.Column(db.String(10), nullable=False)
-    telephone = db.Column(db.String(10), nullable=False)
+    phone = db.Column(db.String(10), nullable=False)
     reg_cod = db.Column(db.String(6), nullable=True)
     validated = db.Column(db.Boolean)
     inversions = db.relationship('Inversion', cascade='all,delete-orphan', backref='owner')
 
-    def __init__(self, first_name, last_name, email, pwd, keyGen=''):
+    def __init__(self, first_name, last_name, email, document, phone, pwd, keyGen=''):
         """Set the columns in atributes"""
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
+        self.document = document
+        self.phone = phone
         self.pwd = pwd
         self.reg_cod = keyGen
         self.validated = False

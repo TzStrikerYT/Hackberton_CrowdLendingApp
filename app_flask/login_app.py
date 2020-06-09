@@ -96,10 +96,12 @@ def register():
         names = request.form["names"]
         last_names = request.form["lastNames"]
         email = request.form["email"]
+        document = request.form['user_dni']
+        phone = request.form['phone']
         password = request.form["password"]
         confirmPwd = request.form["confirmPassword"]
 
-        params = [names, last_names, email, password, confirmPwd]
+        params = [names, last_names, email, document, phone, password, confirmPwd]
 
         for n in params:
 
@@ -125,7 +127,7 @@ def register():
             sendMail(tipo, email, data)
             # Saving User Info
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
-            newUser = user.User(names, last_names, email, md5Pwd, keyGen)
+            newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
             newUser.save()
             session["username"] = email
             return redirect(url_for('emailCheck'))

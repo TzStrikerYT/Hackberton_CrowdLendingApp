@@ -39,8 +39,6 @@ def home():
         im_rt = session.get('message')
         username = session.get('username')
         userObject = user.User.query.filter_by(email=username).first()
-#        print(userObject.debt)
-
         if im_rt is None:
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
         
@@ -70,6 +68,9 @@ def login():
         try:
             if userLog.pwd == md5PwdConfirm:
                 session['username'] = username
+                if userLog.validated == False:
+                    return render_template('login.html', error_validate=True)
+
                 return redirect(url_for("home"))
             error = True
             return render_template("login.html", error_pwd=error)
@@ -96,10 +97,12 @@ def register():
         names = request.form["names"]
         last_names = request.form["lastNames"]
         email = request.form["email"]
+        document = request.form['user_dni']
+        phone = request.form['phone']
         password = request.form["password"]
         confirmPwd = request.form["confirmPassword"]
 
-        params = [names, last_names, email, password, confirmPwd]
+        params = [names, last_names, email, document, phone, password, confirmPwd]
 
         for n in params:
 
@@ -122,11 +125,14 @@ def register():
             data = { 'name': names, 'last_name': last_names, 'code': keyGen }
             sendMail(tipo, email, data)
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
-            newUser = user.User(names, last_names, email, md5Pwd, keyGen)
+            try:
+                newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
+            except:
+                return render_template("register.html", error_data=True)
             newUser.save()
-            session["username"] = email
             session["name"] = names
             session["last_names"] = last_names
+            session["emailcheck"] = email
             return redirect(url_for('emailCheck'))
     return render_template("register.html")
 
@@ -134,7 +140,7 @@ def register():
 @app.route("/emailcheck", methods=['GET', 'POST'], strict_slashes=False)
 def emailCheck():
     """ Check the correct code sended to email """
-    info = user.User.query.filter_by(email=session['username']).first()
+    info = user.User.query.filter_by(email=session['emailcheck']).first()
     if (request.method == 'POST'):
         if ('regCode' in request.form):
             if request.form['regCode'] == info.reg_cod:
@@ -142,7 +148,7 @@ def emailCheck():
                 info.save()
                 return redirect(url_for('home'))
             else:
-                return render_template('checkemail.html', error=True, email=session['username'])
+                return render_template('checkemail.html', error=True, email=session['emailcheck'])
         elif ('Resend' in request.form):
             tipo = 'REG'
             keyGen = '{}'.format(random.randrange(10**6))
@@ -153,6 +159,12 @@ def emailCheck():
             return render_template('checkemail.html', r_msj=True, email=session['username'])
     return render_template('checkemail.html', email=session['username'])
 
+            session['username'] = session['emailcheck']
+            session.pop('emailcheck')
+            return redirect(url_for('home'))
+        else:
+            return render_template('checkemail.html', error=True)
+    return render_template('checkemail.html', email=session['emailcheck'])
 
 
 @app.route("/login_rt", methods=['GET', 'POST'], strict_slashes=False)

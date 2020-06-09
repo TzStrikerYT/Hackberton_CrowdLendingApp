@@ -59,10 +59,16 @@
 		      </div> -->
 
 		      {% if error_pwd %}
-		      <h4>La contrasena o el correo no coinciden</h4>
+		      <div class="alert alert-danger">
+				<span>
+				  <b> ERROR - </b> La Contrase&nacute;a es incorrecta</span>
+			  </div>
 		      {% endif %}
 		      {% if error_fill %}
-		      <h4>Por favor ingresa todos los campos</h4>
+		      <div class="alert alert-danger">
+				<span>
+				  <b> ERROR - </b> Por favor ingresa todos los campos</span>
+			  </div>
 		      {% endif %}
 
 		      <div class="container-login100-form-btn">

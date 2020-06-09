@@ -41,29 +41,37 @@
 		      Ingresa Estos Datos
 		    </span>
 		    <!-- CAPTURA -->
-		    <form action="" method="POST">
-		      <div class="wrap-input100 validate-input">
-			<input class="input100" type="text" name="names" placeholder="Nombres" value="{{request.form.names}}">
-			<span class="focus-input100" data-placeholder="&#xf207;"></span>
-		      </div>
+		<form action="" method="POST">
+		    <div class="wrap-input100 validate-input">
+				<input class="input100" type="text" name="names" placeholder="Nombres" value="{{request.form.names}}">
+				<span class="focus-input100" data-placeholder="&#xf207;"></span>
+		    </div>
 
-		      <div class="wrap-input100 validate-input">
-			<input class="input100" type="text" name="lastNames" placeholder="Apellidos" value="{{request.form.lastNames}}">
-			<span class="focus-input100" data-placeholder="&#xf207;"></span>
-		      </div>
-		      <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" name="email" placeholder="Email" value="{{request.form.username}}">
-                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                      </div>
+		    <div class="wrap-input100 validate-input">
+				<input class="input100" type="text" name="lastNames" placeholder="Apellidos" value="{{request.form.lastNames}}">
+				<span class="focus-input100" data-placeholder="&#xf207;"></span>
+			</div>
+			<div class="wrap-input100 validate-input">
+				<input class="input100" type="text" name="user_dni" placeholder="Documento de identidad" value="{{request.form.user_dni}}">
+				<span class="focus-input100" data-placeholder="&#xf207;"></span>
+			</div>
+			<div class="wrap-input100 validate-input">
+				<input class="input100" type="text" name="phone" placeholder="Tel&eacute;fono/Celular" value="{{request.form.phone}}">
+				<span class="focus-input100" data-placeholder="&#xf207;"></span>
+		    </div>
+		    <div class="wrap-input100 validate-input">
+              	<input class="input100" type="text" name="email" placeholder="Email" value="{{request.form.username}}">
+                <span class="focus-input100" data-placeholder="&#xf207;"></span>
+        	</div>
 
-                      <div class="wrap-input100 validate-input">
-                        <input class="input100" type="password" name="password" placeholder="Contraseña" value="{{request.form.password}}">
-                        <span class="focus-input100" data-placeholder="&#xf191;"></span>
-                      </div>
-		      <div class="wrap-input100 validate-input">
-                        <input class="input100" type="password" name="confirmPassword" placeholder="Repite tu contraseña" value="{{request.form.confirmPassword}}">
-                        <span class="focus-input100" data-placeholder="&#xf191;"></span>
-                      </div>
+            <div class="wrap-input100 validate-input">
+                <input class="input100" type="password" name="password" placeholder="Contraseña" value="{{request.form.password}}">
+                <span class="focus-input100" data-placeholder="&#xf191;"></span>
+            </div>
+		    <div class="wrap-input100 validate-input">
+                <input class="input100" type="password" name="confirmPassword" placeholder="Repite tu contraseña" value="{{request.form.confirmPassword}}">
+                <span class="focus-input100" data-placeholder="&#xf191;"></span>
+            </div>
 
 		      {% if error %}
 		      <div>La contrasenas no coinciden</div>
@@ -91,7 +99,7 @@
 			  Registrarme
 			</button>
 		      </div>
-		    </form>
+		</form>
 
 		    <div class="text-center p-t-90">
 		      <a class="txt1" href="/login">

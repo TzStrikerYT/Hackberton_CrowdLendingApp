@@ -12,7 +12,7 @@ class Inversion(db.Model):
     """
     __tablename__ = 'inversions'
 
-    id = db.Column(db.String(60), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, default=0)
     budget = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     #rappi_points = db.Column(db.Integer, nullable=False)

@@ -16,6 +16,8 @@ class User(db.Model):
     last_name = db.Column(db.String(60), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     pwd = db.Column(db.String(255), nullable=False)
+    document = db.Column(db.String(10), nullable=False)
+    telephone = db.Column(db.String(10), nullable=False)
     reg_cod = db.Column(db.String(6), nullable=True)
     validated = db.Column(db.Boolean)
     inversions = db.relationship('Inversion', cascade='all,delete-orphan', backref='owner')

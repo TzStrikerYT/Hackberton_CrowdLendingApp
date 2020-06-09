@@ -49,11 +49,11 @@ def new_inversion():
 
             return render_template("inversions.html", im_rt=im_rt, date=goodDate)
 
+        currentUser = User.query.filter_by(email=username).first()
         if request.method == "POST":
             cash = request.form['cash']
-            print(cash)
+
             try:
-                currentUser = User.query.filter_by(email=username).first()
                 newInv = Inversion(budget=cash, owner=currentUser)
                 newInv.save()
             except:
@@ -62,7 +62,7 @@ def new_inversion():
             # If pass the creation
             return render_template("inversions.html", error_inv=False, date=goodDate)
         # If is get method
-        return render_template("inversions.html", date=goodDate)
+        return render_template("inversions.html", date=goodDate, data_user=currentUser)
     
     return redirect(url_for("login"))
 
@@ -76,8 +76,11 @@ def inversions():
 @invest.route("/profile")
 def profile():
     """ displays profile template """
+    from models.user import User
+
     im_rt = session.get("message")
-    return render_template("user.html", im_rt=im_rt)
+    pUser = User.query.filter_by(email=session['username']).first()
+    return render_template("user.html", im_rt=im_rt, user_data=pUser)
 
 @invest.route("/logout")
 def logout_invest():

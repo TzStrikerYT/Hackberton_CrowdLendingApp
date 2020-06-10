@@ -52,4 +52,4 @@ class User(db.Model):
 
     def update(self, phone):
         """Update the information"""
-        self.email = email
+        self.phone = phone

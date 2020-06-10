@@ -43,33 +43,33 @@
 		    <!-- CAPTURA -->
 		<form action="" method="POST">
 		    <div class="wrap-input100 validate-input">
-				<input class="input100" type="text" name="names" placeholder="Nombres" value="{{request.form.names}}">
+				<input maxlength="60" class="input100" type="text" name="names" placeholder="Nombres" value="{{request.form.names}}">
 				<span class="focus-input100" data-placeholder="&#xf207;"></span>
 		    </div>
 
 		    <div class="wrap-input100 validate-input">
-				<input class="input100" type="text" name="lastNames" placeholder="Apellidos" value="{{request.form.lastNames}}">
+				<input maxlength="60" class="input100" type="text" name="lastNames" placeholder="Apellidos" value="{{request.form.lastNames}}">
 				<span class="focus-input100" data-placeholder="&#xf207;"></span>
 			</div>
 			<div class="wrap-input100 validate-input">
-				<input class="input100" type="text" name="user_dni" placeholder="Documento de identidad" value="{{request.form.user_dni}}">
+				<input maxlength="25" class="input100" type="text" name="user_dni" placeholder="Documento de identidad" value="{{request.form.user_dni}}">
 				<span class="focus-input100" data-placeholder="&#xf207;"></span>
 			</div>
 			<div class="wrap-input100 validate-input">
-				<input class="input100" type="text" name="phone" placeholder="Tel&eacute;fono/Celular" value="{{request.form.phone}}">
+				<input maxlength="25" class="input100" type="text" name="phone" placeholder="Tel&eacute;fono/Celular" value="{{request.form.phone}}">
 				<span class="focus-input100" data-placeholder="&#xf207;"></span>
 		    </div>
 		    <div class="wrap-input100 validate-input">
-              	<input class="input100" type="text" name="email" placeholder="Email" value="{{request.form.username}}">
+              	<input maxlength="255" class="input100" type="text" name="email" placeholder="Email" value="{{request.form.username}}">
                 <span class="focus-input100" data-placeholder="&#xf207;"></span>
         	</div>
 
             <div class="wrap-input100 validate-input">
-                <input class="input100" type="password" name="password" placeholder="Contraseña" value="{{request.form.password}}">
+                <input maxlength="255" class="input100" type="password" name="password" placeholder="Contraseña" value="{{request.form.password}}">
                 <span class="focus-input100" data-placeholder="&#xf191;"></span>
             </div>
 		    <div class="wrap-input100 validate-input">
-                <input class="input100" type="password" name="confirmPassword" placeholder="Repite tu contraseña" value="{{request.form.confirmPassword}}">
+                <input maxlength="255" class="input100" type="password" name="confirmPassword" placeholder="Repite tu contraseña" value="{{request.form.confirmPassword}}">
                 <span class="focus-input100" data-placeholder="&#xf191;"></span>
             </div>
 
@@ -91,7 +91,13 @@
 		      <h4>Las contrasenas ingresadas no coinciden</h4>
 		      {% endif %}
 		      {% if error_exist %}
-		      <h4>El correo usando ya esta ligado a una cuenta</h4>
+			  <h4>El correo usando ya esta ligado a una cuenta</h4>
+			  {% endif %}
+			  {% if error_chr %}
+			  <div class="alert alert-danger">
+				<span>
+				  <b> ERROR - </b>Revise que el documento no contenga caracteres diferentes a caracteres numericos (Ingrese Unicamente Caracteres Numericos)</span>
+			  </div>
 		      {% endif %}
 
 		      <div class="container-login100-form-btn">

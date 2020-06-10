@@ -102,6 +102,7 @@ def register():
         confirmPwd = request.form["confirmPassword"]
 
         params = [names, last_names, email, document, phone, password, confirmPwd]
+        nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
         for n in params:
 
@@ -109,6 +110,12 @@ def register():
                 error = True
                 return render_template("register.html", error_params=error)
 
+        for verify in [document, phone]:
+            for lttr in verify:
+                print(lttr)
+                if lttr not in nums:
+                    return render_template("register.html", error_chr=True) 
+        
         if password != confirmPwd:
             error = True
             return render_template("register.html", error_match=error)

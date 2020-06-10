@@ -102,7 +102,7 @@ def register():
         confirmPwd = request.form["confirmPassword"]
 
         params = [names, last_names, email, document, phone, password, confirmPwd]
-        nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        nums = ["0","1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
         for n in params:
 

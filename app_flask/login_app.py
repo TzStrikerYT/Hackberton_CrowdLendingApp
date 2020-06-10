@@ -71,6 +71,9 @@ def login():
                     session['emailcheck'] = username
                     return redirect(url_for("emailCheck"))
 
+                session['username'] = username
+                return redirect(url_for('home')
+
             error = True
             return render_template("login.html", error_pwd=error)
         except:

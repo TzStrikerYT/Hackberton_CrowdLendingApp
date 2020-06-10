@@ -15,6 +15,7 @@ def new_inversion():
     """Create a new inversion object"""
     from models.inversion import Inversion
     from models.user import User
+    from models.commonFound import CommonFound
 
     # Make code for both type users
     im_rt = session.get('message')
@@ -59,6 +60,13 @@ def new_inversion():
             except:
                 # Pass this error if the inversion object not is created
                 return render_template("inversions.html", error_inv=True, date=goodDate, data_user=currentUser)
+
+            found = CommonFound.query.all()
+            if found is None:
+                found = CommonFound()
+
+            found.add_inversion(newInv.budget)
+            
             # If pass the creation
             return render_template("inversions.html", error_inv=False, date=goodDate, data_user=currentUser)
         # If is get method

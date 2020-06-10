@@ -20,6 +20,7 @@ class User(db.Model):
     phone = db.Column(db.String(25), nullable=False)
     reg_cod = db.Column(db.String(6), nullable=True)
     validated = db.Column(db.Boolean)
+    #profits = db.Column(db.Integer, default=0) Create a funtion that make the payment to the profits
     inversions = db.relationship('Inversion', cascade='all,delete-orphan', backref='owner')
 
     def __init__(self, first_name, last_name, email, document, phone, pwd, keyGen=''):

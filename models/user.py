@@ -50,7 +50,6 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def update(self, phone, email):
+    def update(self, phone):
         """Update the information"""
         self.email = email
-        self.phone = phone

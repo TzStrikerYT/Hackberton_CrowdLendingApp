@@ -86,15 +86,11 @@ def profile():
 
         if request.method == "POST":
             cel = request.form['phone']
-            email = request.form['email']
 
-            params = [cel, email]
+        if len(n) == 0:
+            return render_template("user.html", im_rt=im_rt, error_fill=True, user_data=pUser)
 
-            for n in params:
-                if len(n) == 0:
-                    return render_template("user.html", im_rt=im_rt, error_fill=True, user_data=pUser)
-
-            pUser.update(cel, email)
+            pUser.update(cel)
             pUser.save()
 
             return render_template("user.html", im_rt=im_rt, error_fill=False, user_data=pUser)

@@ -85,8 +85,8 @@ def profile():
         pUser = User.query.filter_by(email=session['username']).first()
 
         if request.method == "POST":
-            cel = request.form('phone')
-            email = request.form('email')
+            cel = request.form['phone']
+            email = request.form['email']
 
             params = [cel, email]
 

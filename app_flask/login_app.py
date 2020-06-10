@@ -68,10 +68,9 @@ def login():
         try:
             if userLog.pwd == md5PwdConfirm:
                 if userLog.validated == False:
+                    session['emailcheck'] = username
                     return redirect(url_for("emailCheck"))
 
-                session['username'] = username
-                return redirect(url_for("home"))
             error = True
             return render_template("login.html", error_pwd=error)
         except:
@@ -140,28 +139,32 @@ def register():
 @app.route("/emailcheck", methods=['GET', 'POST'], strict_slashes=False)
 def emailCheck():
     """ Check the correct code sended to email """
-    info = user.User.query.filter_by(email=session['emailcheck']).first()
-    if (request.method == 'POST'):
-        if ('regCode' in request.form):
-            if request.form['regCode'] == info.reg_cod:
-                info.validated = True
+    if 'emailcheck' in session:
+        info = user.User.query.filter_by(email=session['emailcheck']).first()
+        if (request.method == 'POST'):
+            if ('regCode' in request.form):
+                if request.form['regCode'] == info.reg_cod:
+                    info.validated = True
+                    info.save()
+                    session['username'] = session['emailcheck']
+                    session.pop('emailcheck')
+                    session.pop('name')
+                    session.pop('last_names')
+                    return redirect(url_for('home'))
+                else:
+                    return render_template('checkemail.html', error=True, email=session['emailcheck'])
+            elif ('Resend' in request.form):
+                tipo = 'REG'
+                keyGen = '{}'.format(random.randrange(10**6))
+                data = { 'name': session['name'], 'last_name': session['last_names'], 'code': keyGen}
+                sendMail(tipo, session['emailcheck'], data)
+                info.reg_cod = keyGen
                 info.save()
-                session['username'] = session['emailcheck']
-                session.pop('emailcheck')
-                session.pop('name')
-                session.pop('last_names')
-                return redirect(url_for('home'))
-            else:
-                return render_template('checkemail.html', error=True, email=session['emailcheck'])
-        elif ('Resend' in request.form):
-            tipo = 'REG'
-            keyGen = '{}'.format(random.randrange(10**6))
-            data = { 'name': session['name'], 'last_name': session['last_names'], 'code': keyGen}
-            sendMail(tipo, session['emailcheck'], data)
-            info.reg_cod = keyGen
-            info.save()
-            return render_template('checkemail.html', r_msj=True, email=session['emailcheck'])
-    return render_template('checkemail.html', email=session['emailcheck'])
+                return render_template('checkemail.html', r_msj=True, email=session['emailcheck'])
+    
+        return render_template('checkemail.html', email=session['emailcheck'])
+    
+    return redirect(url_for("register"))
 
 
 @app.route("/login_rt", methods=['GET', 'POST'], strict_slashes=False)

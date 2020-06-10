@@ -75,7 +75,7 @@ def inversions():
         return render_template("my_carter.html", im_rt=im_rt)
     return redirect(url_for("login"))
 
-@invest.route("/profile")
+@invest.route("/profile", methods=['GET', 'POST'])
 def profile():
     """ displays profile template """
     from models.user import User

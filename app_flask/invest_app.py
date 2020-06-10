@@ -83,6 +83,22 @@ def profile():
     if 'username' in session:
         im_rt = session.get("message")
         pUser = User.query.filter_by(email=session['username']).first()
+
+        if request.method == "POST":
+            cel = request.form('phone')
+            email = request.form('email')
+
+            params = [cel, email]
+
+            for n in params:
+                if len(n) == 0:
+                    return render_template("user.html", im_rt=im_rt, error_fill=True)
+
+            pUser.update(cel, email)
+            pUser.save()
+
+            return render_template("user.html", im_rt=im_rt, error_fill=False)
+
         return render_template("user.html", im_rt=im_rt, user_data=pUser)
     return redirect(url_for('login'))
 

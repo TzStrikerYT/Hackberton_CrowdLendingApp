@@ -87,8 +87,8 @@ def profile():
         if request.method == "POST":
             cel = request.form['phone']
 
-        if len(n) == 0:
-            return render_template("user.html", im_rt=im_rt, error_fill=True, user_data=pUser)
+            if len(cel) == 0:
+                return render_template("user.html", im_rt=im_rt, error_fill=True, user_data=pUser)
 
             pUser.update(cel)
             pUser.save()

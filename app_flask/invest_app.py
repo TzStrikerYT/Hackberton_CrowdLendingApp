@@ -70,17 +70,21 @@ def new_inversion():
 @invest.route("/my_carter")
 def inversions():
     """ My inversions """
-    im_rt = session.get("message")
-    return render_template("my_carter.html", im_rt=im_rt)
+    if 'username' in session:
+        im_rt = session.get("message")
+        return render_template("my_carter.html", im_rt=im_rt)
+    return redirect(url_for("login"))
 
 @invest.route("/profile")
 def profile():
     """ displays profile template """
     from models.user import User
 
-    im_rt = session.get("message")
-    pUser = User.query.filter_by(email=session['username']).first()
-    return render_template("user.html", im_rt=im_rt, user_data=pUser)
+    if 'username' in session:
+        im_rt = session.get("message")
+        pUser = User.query.filter_by(email=session['username']).first()
+        return render_template("user.html", im_rt=im_rt, user_data=pUser)
+    return redirect(url_for('login'))
 
 @invest.route("/logout")
 def logout_invest():

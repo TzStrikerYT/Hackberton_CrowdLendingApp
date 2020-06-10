@@ -61,6 +61,7 @@ def login():
         userLog = user.User.query.filter_by(email=username).first()
 
         params = [username, password]
+
         for n in params:
             if len(n) is 0:
                 error = True
@@ -72,10 +73,10 @@ def login():
                     return redirect(url_for("emailCheck"))
 
                 session['username'] = username
-                return redirect(url_for('home')
+                return redirect(url_for('home'))
 
-            error = True
-            return render_template("login.html", error_pwd=error)
+            return render_template("login.html", error_pwd=True)
+        
         except:
             error = True
             return render_template("login.html", error_pwd=error)

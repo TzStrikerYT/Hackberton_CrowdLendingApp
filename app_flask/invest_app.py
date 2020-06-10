@@ -92,12 +92,12 @@ def profile():
 
             for n in params:
                 if len(n) == 0:
-                    return render_template("user.html", im_rt=im_rt, error_fill=True)
+                    return render_template("user.html", im_rt=im_rt, error_fill=True, user_data=pUser)
 
             pUser.update(cel, email)
             pUser.save()
 
-            return render_template("user.html", im_rt=im_rt, error_fill=False)
+            return render_template("user.html", im_rt=im_rt, error_fill=False, user_data=pUser)
 
         return render_template("user.html", im_rt=im_rt, user_data=pUser)
     return redirect(url_for('login'))

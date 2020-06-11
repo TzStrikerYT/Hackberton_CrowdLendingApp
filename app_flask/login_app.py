@@ -42,7 +42,7 @@ def home():
         if im_rt is None:
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
         
-        return render_template("dashboard.html", im_rt=im_rt, debt=userObject.debt)
+        return render_template("dashboard.html", im_rt=im_rt)#, debt=userObject.debt)
 
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)

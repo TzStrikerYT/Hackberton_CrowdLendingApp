@@ -37,25 +37,25 @@ class CommonFound(db.Model):
 
         # Put the history in a file
         empty = True
+        date = datetime.utcnow()
+        goodDate = date.strftime('%d-%m-%Y')
 
-        with open("found_history.csv") as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
+        try:
+            with open("found_history.csv") as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
 
-            print("Len of my file", len(csv_reader))
+                print(csv_reader)
 
-            if len(csv_reader) > 0:
-                empty = False
-
-        if empty == True:
-            with open("found_history.csv", "w", newline="", encoding="utf-8") as csv_file:
-                writer = csv.writer(csv_file)
-                writer.writerow(["Change Date", "Total Money", "Debt Money", "Type Change", "Change Value"])
-                writer.writerow([datetime.utcnow(), self.total_money, self.debt_money, "Inversion", money])
+                #if len(csv_reader) > 0:
+                    #empty = False
+        except FileNotFoundError:
+                with open("found_history.csv", "w", newline="", encoding="utf-8") as csv_file:
+                    writer = csv.writer(csv_file)
+                    writer.writerow(["Change Date", "Total Money", "Debt Money", "Type Change", "Change Value"])
         
-        elif empty == False:
-            with open("found_history.csv", "a", newline="", encoding="utf-8") as csv_file:
-                writer = csv.writer(csv_file)
-                writer.writerow([datetime.utcnow(), self.total_money, self.debt_money, "Inversion", money])
+        with open("found_history.csv", "a", newline="", encoding="utf-8") as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow([goodDate, self.total_money, self.debt_money, "Inversion", money])
 
 
     def put_debt(self, money):

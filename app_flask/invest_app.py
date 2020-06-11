@@ -61,12 +61,13 @@ def new_inversion():
                 # Pass this error if the inversion object not is created
                 return render_template("inversions.html", error_inv=True, date=goodDate, data_user=currentUser)
 
-            found = CommonFound.query.all()
+            found = CommonFound.query.first()
+            print(found)
             if found is None:
                 found = CommonFound()
 
             found.add_inversion(newInv.budget)
-            
+
             # If pass the creation
             return render_template("inversions.html", error_inv=False, date=goodDate, data_user=currentUser)
         # If is get method

@@ -116,7 +116,6 @@ def register():
 
         for verify in [document, phone]:
             for lttr in verify:
-                print(lttr)
                 if lttr not in nums:
                     return render_template("register.html", error_chr=True) 
         

@@ -251,7 +251,9 @@ def rappi_login():
             if userLog is None:
                 newUser = user.User(rt_response.get('first_name'),
                                     rt_response.get('last_name'),
-                                    rt_response.get('email'), "")
+                                    rt_response.get('email'),
+                                    rt_response.get('identification'),
+                                    rt_response.get('telephone'), "")
                 newUser.save()
 
             session['username'] = rt_response.get('email')

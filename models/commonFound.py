@@ -36,7 +36,6 @@ class CommonFound(db.Model):
         db.session.commit()
 
         # Put the history in a file
-        empty = True
         date = datetime.utcnow()
         goodDate = date.strftime('%d-%m-%Y')
 
@@ -44,10 +43,6 @@ class CommonFound(db.Model):
             with open("found_history.csv") as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=',')
 
-                print(csv_reader)
-
-                #if len(csv_reader) > 0:
-                    #empty = False
         except FileNotFoundError:
                 with open("found_history.csv", "w", newline="", encoding="utf-8") as csv_file:
                     writer = csv.writer(csv_file)

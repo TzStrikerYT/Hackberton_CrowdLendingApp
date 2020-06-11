@@ -61,12 +61,23 @@
               <p>Mi Perfil</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <!-- jinja wallet statement -->
+          {% if im_rt == True %}
+          <li class="nav-item active ">
+            <a class="nav-link" href="/invest/my_carter">
+              <i class="material-icons">local_atm</i>
+              <p>Mis pagos</p>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item active ">
             <a class="nav-link" href="/invest/my_carter">
               <i class="material-icons">local_atm</i>
               <p>Mi Cartera</p>
             </a>
           </li>
+          {% endif %}
+          <!-- jinja wallet statement -->
         </ul>
       </div>
     </div>

@@ -61,12 +61,23 @@
               <p>Mi Perfil</p>
             </a>
           </li>
+          <!-- jinja wallet statement -->
+          {% if im_rt == True %}
+          <li class="nav-item ">
+            <a class="nav-link" href="/invest/my_carter">
+              <i class="material-icons">local_atm</i>
+              <p>Mis pagos</p>
+            </a>
+          </li>
+          {% else %}
           <li class="nav-item ">
             <a class="nav-link" href="/invest/my_carter">
               <i class="material-icons">local_atm</i>
               <p>Mi Cartera</p>
             </a>
           </li>
+          {% endif %}
+          <!-- jinja wallet statement -->
         </ul>
       </div>
     </div>
@@ -159,7 +170,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email</label>
-                          <input type="text" class="form-control" name="email" value="{{ user_data.email }}">
+                          <input type="text" class="form-control" name="email" value="{{ user_data.email }}" disabled>
                         </div>
                       </div>
                       <br>
@@ -174,6 +185,24 @@
                     <div class="clearfix"></div>
                   </form>
                 </div>
+                {% if error_fill == True %}
+                  <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                      <b> Error - </b> Ingresa los datos que deseas cambiar</span>
+                  </div>
+                  {% endif %}
+                  {% if error_fill == False %}
+                  <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                      <b> Realizado - </b> Los datos se han cambiado correctamente</span>
+                  </div>
+                  {% endif %}
               </div>
             </div>
             <div class="col-md-4">

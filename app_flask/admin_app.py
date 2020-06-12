@@ -32,18 +32,18 @@ def admin_login():
 
         for n in params:
             if len(n) == 0:
-                return render_template("login_admin.html", error_fill=True)
+                return render_template("login_adm.html", error_fill=True)
         try:
             if userLog.pwd == md5PwdConfirm:
                 session['admin-session'] = username
                 return redirect(url_for("new_debts"))
 
-            return render_template("login_admin.html", error_pwd=True)
+            return render_template("login_adm.html", error_pwd=True)
         
         except:
-            return render_template("login_admin.html", error_pwd=True)
+            return render_template("login_adm.html", error_pwd=True)
 
-    return render_template("login_admin.html")
+    return render_template("login_adm.html")
 
 
 @admin.route("/register", methods=['GET', 'POST'])
@@ -67,25 +67,25 @@ def admin_register():
 
         for n in params:
             if len(n) == 0:
-                return render_template("register_admin.html", error_params=True)
+                return render_template("register_adm.html", error_params=True)
 
         allAdmins = [admin.username for admin in Admin.query.all()]
 
         if username in allAdmins:
-            return render_template("register_admin.html", error_exist=True)
+            return render_template("register_adm.html", error_exist=True)
 
         else:
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
             try:
                 newAdmin = Admin(names, last_names, username, md5Pwd)
             except:
-                return render_template("register_admin.html", error_data=True)
+                return render_template("register_adm.html", error_data=True)
 
             newAdmin.save()
             session['admin-session'] = username
             return redirect(url_for("new_debts"))
 
-    return render_template("register_admin.html")
+    return render_template("register_adm.html")
 
 
 @admin.route("/new_debts", methods=['GET', 'POST'])
@@ -97,6 +97,7 @@ def new_debts():
         return "Prueba exitosa para admin"
 
     redirect(url_for("admin_login"))
+
 
 @admin.route("/logout")
 def admin_logout():

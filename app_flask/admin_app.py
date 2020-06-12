@@ -97,3 +97,11 @@ def new_debts():
         return "Prueba exitosa para admin"
 
     redirect(url_for("admin_login"))
+
+@admin.route("/logout")
+def admin_logout():
+    """Admin logout"""
+    if "admin-session" in session:
+        session.pop('admin-session')
+
+    return redirect(url_for("logout"))

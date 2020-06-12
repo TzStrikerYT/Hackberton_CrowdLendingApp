@@ -24,7 +24,7 @@ class Admin(db.Model):
         self.username = username
         self.pwd = pwd
 
-    def save():
-        """Save the new object into the data base"""
+    def save(self):
+    """Save the new object into the data base"""
         db.session.add(self)
         db.session.commit()

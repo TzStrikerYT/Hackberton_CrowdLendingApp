@@ -74,7 +74,8 @@
         <div class="container-fluid">
           <div class="row">
             <!-- div inversion jinja duplicate -->
-            <!--{% for inversion in inversions %}-->
+            {% for key, value in user_dict.items() %}
+            {% for debt in value %}
             <div class="col-lg-12 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <a data-toggle="aprovation" href="#aprovation">
@@ -83,9 +84,9 @@
                     <i class="material-icons">work</i>
                   </div>
                   <p class="card-category">Solicitud</p>
-                  <h3 class="card-title" >4000000</h3>
+                  <h3 class="card-title" >{{ debt.debt }}</h3>
                   <br>
-                  <p class="card-category">orem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos</p>
+                  <p class="card-category">{{ debt.reason }}</p>
                   <br>
                   <!-- campos data -->
                 <form action="" method="POST">
@@ -93,7 +94,7 @@
                     <div class="col-md-5">
                       <div class="form-group">
                         <label class="bmd-label-floating">Fecha</label>
-                        <input type="text" class="form-control" value="FECHA ACTUAL" disabled name="date_sol">
+                        <input type="text" class="form-control" value="{{ debt.created_at }}" disabled name="date_sol">
                       </div>
                     </div>
                     <br>
@@ -117,7 +118,7 @@
                 <!-- Formulario de envio de data -->
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">date_range</i> fecha de solicitud
+                    <i class="material-icons">card_membership</i> Identificaci&oacute;n N° {{ key }}
                   </div>
                   <div class="stats">
                     <button type="submit" class="btn btn-primary pull-right" name="state" value="postulado">Postular</button>
@@ -127,7 +128,7 @@
                     &nbsp;
                     &nbsp;
                   <form method="POST" action="">
-                    <button type="submit" class="btn btn-primary-admin pull-right" name="" value="rechazado">Rechazar</button>
+                    <button type="submit" class="btn btn-primary-admin pull-right" name="state" value="rechazado">Rechazar</button>
                   </form>
                   </div>
                 </div>
@@ -135,7 +136,8 @@
               </a>
               </div>
             </div>
-            <!--{% endfor %}-->
+            {% endfor %}
+            {% endfor %}
           </div>
           <!-- end the jinja-->
          <footer class="footer">

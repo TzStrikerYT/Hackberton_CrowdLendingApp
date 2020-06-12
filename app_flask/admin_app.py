@@ -15,10 +15,20 @@ admin = Blueprint("admin", __name__)
 @admin.route("/new_debts", methods=['GET', 'POST'])
 def new_debts():
     """All postulations debts"""
-    from models.debt import Debt
+    from models.user import User
 
     if "admin-session" in session:
-        return "Prueba exitosa para admin"
+        users = User.query.all() 
+        user_dict = {}
+
+        for user in users:
+            user_dict[user.document] = []
+            for debt in user.debts:
+                if debt.state == "In progress":
+                    user_dict[user.document].append(debt)
+        print(user_dict)
+
+        return render_template("admin.html", user_dict=user_dict)
 
     return redirect(url_for('admin.admin_login'))
 

@@ -9466,10 +9466,23 @@ a.text-dark:focus {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
+.btn.btn-primary-admin {
+  color: #000;
+  background-color: #fafafa;
+  border-color: #000000;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
 .btn.btn-primary:hover {
   color: #fff;
   background-color: #4caf50;
   border-color: #4caf50;
+}
+
+.btn.btn-primary-admin:hover {
+  color: #fff;
+  background-color: #eb1313;
+  border-color: #eb1313;
 }
 
 .btn.btn-primary:focus,
@@ -18039,7 +18052,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 
 .card-stats .card-header.card-header-icon,
 .card-stats .card-header.card-header-text {
-  text-align: right;
+  text-align: left;
 }
 
 .card-stats .card-header .card-icon+.card-title,

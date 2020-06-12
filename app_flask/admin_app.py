@@ -7,6 +7,7 @@ from flask import (
     session, redirect,
     url_for, request)
 from datetime import datetime
+from hashlib import md5
 
 admin = Blueprint("admin", __name__)
 
@@ -30,7 +31,7 @@ def admin_login():
         params = [username, password]
 
         for n in params:
-            if len(n) is 0:
+            if len(n) == 0:
                 return render_template("login_adm.html", error_fill=True)
         try:
             if userLog.pwd == md5PwdConfirm:

@@ -31,18 +31,18 @@ def admin_login():
 
         for n in params:
             if len(n) is 0:
-                return render_template("login_admin.html", error_fill=True)
+                return render_template("login_adm.html", error_fill=True)
         try:
             if userLog.pwd == md5PwdConfirm:
                 session['admin-session'] = username
                 return redirect(url_for("new_debts"))
 
-            return render_template("login_admin.html", error_pwd=True)
+            return render_template("login_adm.html", error_pwd=True)
         
         except:
-            return render_template("login_admin.html", error_pwd=True)
+            return render_template("login_adm.html", error_pwd=True)
 
-    return render_template("login_admin.html")
+    return render_template("login_adm.html")
 
 
 @admin.route("/register", methods=['GET', 'POST'])

@@ -16,5 +16,6 @@ app.secret_key = 'esto-es-una-clave-secreta'
 from models.user import User
 from models.inversion import Inversion
 from models.commonFound import CommonFound
+from models.debt import Debt
 
 db.create_all()

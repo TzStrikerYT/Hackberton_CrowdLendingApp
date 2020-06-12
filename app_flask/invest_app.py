@@ -16,6 +16,7 @@ def new_inversion():
     from models.inversion import Inversion
     from models.user import User
     from models.commonFound import CommonFound
+    from models.debt import Debt
 
     # Make code for both type users
     im_rt = session.get('message')
@@ -24,33 +25,22 @@ def new_inversion():
         date = datetime.utcnow()
         goodDate = date.strftime('%d-%m-%Y')
 
+        currentUser = User.query.filter_by(email=username).first()
+
         if im_rt is True:
             #Add here the code for generate debt with the API
             if request.method == "POST":
                 the_debt = request.form['cash']
                 reason = request.form['motive']
 
-                #put here the API
-                #curl --location --request POST 'http://microservices.dev.rappi.com/api/manual-dispersion/debt' \
-                #--header 'Content-Type: application/json' \
-                #--data-raw '{"debts":[
-                #    {
-                #    "storekeeper_id":33082,
-                #    "reason": "expired_or_undelivered_sampling",
-                #    "amount":-70000,
-                #    "comment":"Deuda pendiente",
-                #    "orderId":0
-                #    }
-                #],
-                #"user":"delymar.rodriguez@rappi.com",
-                #"user_id":3778
-                #}'
+                new_debt = Debt(debt=the_debt, reason=reason, owner=currentUser)
+                new_debt.save()
                 
                 return render_template("inversions.html", im_rt=im_rt, date=goodDate, error_inv=False)
 
             return render_template("inversions.html", im_rt=im_rt, date=goodDate)
 
-        currentUser = User.query.filter_by(email=username).first()
+
         if request.method == "POST":
             cash = request.form['cash']
 

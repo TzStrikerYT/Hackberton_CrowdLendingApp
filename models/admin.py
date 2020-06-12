@@ -3,8 +3,6 @@
 Create the user of the APP
 """
 from app_flask import db
-from models.inversion import Inversion
-from datetime import datetime
 
 class Admin(db.Model):
     """Class to make the querys to the database"""
@@ -25,6 +23,6 @@ class Admin(db.Model):
         self.pwd = pwd
 
     def save(self):
-    """Save the new object into the data base"""
+        """Save the new object into the data base"""
         db.session.add(self)
         db.session.commit()

@@ -11,6 +11,18 @@ from hashlib import md5
 
 admin = Blueprint("admin", __name__)
 
+
+@admin.route("/new_debts", methods=['GET', 'POST'])
+def new_debts():
+    """All postulations debts"""
+    from models.debt import Debt
+
+    if "admin-session" in session:
+        return "Prueba exitosa para admin"
+
+    return redirect(url_for('admin.admin_login'))
+
+
 @admin.route("/", methods=['GET', 'POST'])
 @admin.route("/login", methods=['GET', 'POST'])
 def admin_login():
@@ -18,7 +30,7 @@ def admin_login():
     from models.admin import Admin
 
     if 'admin-session' in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('admin.new_debts'))
 
     elif request.method == "POST":
 
@@ -36,7 +48,7 @@ def admin_login():
         try:
             if userLog.pwd == md5PwdConfirm:
                 session['admin-session'] = username
-                return redirect(url_for("new_debts"))
+                return redirect(url_for("admin.new_debts"))
 
             return render_template("login_adm.html", error_pwd=True)
         
@@ -55,7 +67,7 @@ def admin_register():
     from models.admin import Admin
 
     if "admin-session" in session:
-        redirect(url_for("new_debts"))
+        return redirect(url_for("admin.new_debts"))
 
     if request.method == "POST":
         names = request.form["names"]
@@ -83,20 +95,9 @@ def admin_register():
 
             newAdmin.save()
             session['admin-session'] = username
-            return redirect(url_for("new_debts"))
+            return redirect(url_for('admin.new_debts'))
 
     return render_template("register_adm.html")
-
-
-@admin.route("/new_debts", methods=['GET', 'POST'])
-def new_debts():
-    """All postulations debts"""
-    from models.debt import Debt
-
-    if "admin-username" in session:
-        return "Prueba exitosa para admin"
-
-    redirect(url_for("admin_login"))
 
 
 @admin.route("/logout")
@@ -105,4 +106,4 @@ def admin_logout():
     if "admin-session" in session:
         session.pop('admin-session')
 
-    return redirect(url_for("logout"))
+    return redirect(url_for("admin.admin_login"))

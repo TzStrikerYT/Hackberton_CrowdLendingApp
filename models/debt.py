@@ -58,7 +58,7 @@ class Debt(db.Model):
     def confirmation(self, confirm, rate=0, fee_payment=0):
         """Put the state and the interes"""
         
-        if confirm == "Postulate":
+        if confirm == "postulated":
             self.state = "Postulate"
             self.interest_rate = rate
             self.fee_payment = fee_payment
@@ -68,11 +68,11 @@ class Debt(db.Model):
             self.fee_value = (goodRate * self.debt) / (1 - (pow(1 + goodRate, (self.fee_payment * -1))))
             return (0)
 
-        if confirm == "Rejected":
+        if confirm == "rejected":
             self.state = "Rejected"
             # If pass 1, this debt will be deleted
             return (1)
 
-        if confirm == "Accept":
+        if confirm == "accept":
             self.state = "Acepted"
             return (0)

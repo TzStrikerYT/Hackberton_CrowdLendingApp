@@ -34,7 +34,7 @@ def new_debts():
             ownerAndDebt = state.split(" ")
     
             try:
-                rate = int(request.form['interest'])
+                rate = float(request.form['interest'])
                 n_pays = int(request.form['n_pays'])
 
             except:

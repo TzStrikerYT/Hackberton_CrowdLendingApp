@@ -16,7 +16,7 @@ class Debt(db.Model):
     debt = db.Column(db.Integer, nullable=False) # Total de la deuda
     realtive_debt = db.Column(db.Float, default=0) #Deuda disminuida a capital
     
-    interest_rate = db.Column(db.Integer, default=0) # Tasa de interes
+    interest_rate = db.Column(db.Float, default=0) # Tasa de interes
     fee_payment = db.Column(db.Integer, default=0) # Cantidad de cuotas pactadas
     fee_value = db.Column(db.Float, default=0) # Valor de la cuota
     actual_fee_payment = db.Column(db.Integer, default=0) # Cuotas pagadas

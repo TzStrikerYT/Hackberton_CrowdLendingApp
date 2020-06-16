@@ -16,6 +16,7 @@ admin = Blueprint("admin", __name__)
 def new_debts():
     """All postulations debts"""
     from models.user import User
+    from models.debt import Debt
 
     if "admin-session" in session:
         users = User.query.all() 
@@ -26,7 +27,28 @@ def new_debts():
             for debt in user.debts:
                 if debt.state == "In progress":
                     user_dict[user.document].append(debt)
-        print(user_dict)
+
+        if request.method == "POST":
+            # Use the state to validate
+            state = request.form['state']
+            ownerAndDebt = state.split(" ")
+    
+            try:
+                rate = int(request.form['interest'])
+                n_pays = int(request.form['n_pays'])
+
+            except:
+                rate = 0
+                n_pays = 0
+
+            if rate is 0 or n_pays is 0 and state == "postulated":
+                    return render_template("admin.html", user_dict=user_dict, error_fill=True)
+                
+            debt = Debt.query.filter_by(user_id=ownerAndDebt[1]).first()
+            debt.confirmation(ownerAndDebt[0], rate, n_pays)
+            debt.save()
+
+            return render_template("admin.html", user_dict=user_dict)    
 
         return render_template("admin.html", user_dict=user_dict)
 

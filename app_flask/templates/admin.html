@@ -121,14 +121,14 @@
                     <i class="material-icons">card_membership</i> Identificaci&oacute;n N° {{ key }}
                   </div>
                   <div class="stats">
-                    <button type="submit" class="btn btn-primary pull-right" name="state" value="postulado">Postular</button>
+                    <button type="submit" class="btn btn-primary pull-right" name="state" value="postulated {{ debt.id }}">Postular</button>
                 </form>
                     &nbsp;
                     &nbsp;
                     &nbsp;
                     &nbsp;
                   <form method="POST" action="">
-                    <button type="submit" class="btn btn-primary-admin pull-right" name="state" value="rechazado">Rechazar</button>
+                    <button type="submit" class="btn btn-primary-admin pull-right" name="state" value="rejected {{ debt.id }}">Rechazar</button>
                   </form>
                   </div>
                 </div>

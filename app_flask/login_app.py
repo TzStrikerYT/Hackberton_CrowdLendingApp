@@ -39,6 +39,7 @@ def home():
         im_rt = session.get('message')
         username = session.get('username')
         userObject = user.User.query.filter_by(email=username).first()
+       
         if im_rt is None:
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
         

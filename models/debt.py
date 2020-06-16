@@ -59,7 +59,7 @@ class Debt(db.Model):
         """Put the state and the interes"""
         
         if confirm == "postulated":
-            self.state = "Postulate"
+            self.state = "Postulated"
             self.interest_rate = rate
             self.fee_payment = fee_payment
             goodRate = rate / 100

@@ -26,7 +26,6 @@ def new_inversion():
         goodDate = date.strftime('%d-%m-%Y')
 
         currentUser = User.query.filter_by(email=username).first()
-        print(currentUser)
 
         if im_rt is True:
             #Add here the code for generate debt with the API

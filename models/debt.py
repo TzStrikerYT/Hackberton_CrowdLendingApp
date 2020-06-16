@@ -64,15 +64,11 @@ class Debt(db.Model):
             self.fee_payment = fee_payment
             goodRate = rate / 100
 
-            # Valor de la cuota (formula de interes compuesto
+            # Valor de la cuota (formula de interes compuesto)
             self.fee_value = (goodRate * self.debt) / (1 - (pow(1 + goodRate, (self.fee_payment * -1))))
-            return (0)
 
         if confirm == "rejected":
             self.state = "Rejected"
-            # If pass 1, this debt will be deleted
-            return (1)
 
         if confirm == "accept":
             self.state = "Acepted"
-            return (0)

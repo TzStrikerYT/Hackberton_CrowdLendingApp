@@ -70,5 +70,5 @@ class Debt(db.Model):
         if confirm == "rejected":
             self.state = "Rejected"
 
-        if confirm == "accept":
-            self.state = "Acepted"
+        if confirm == "accepted":
+            self.state = "Accepted"

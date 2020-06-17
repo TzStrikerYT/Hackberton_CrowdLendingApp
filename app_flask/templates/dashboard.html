@@ -202,18 +202,24 @@
                         <b> RECHAZADA- </b> Tu solicitud ha sido rechazada, esto se debe a que al momento de revisar tu perfil no cumples con los estandares para aplicar a este credito, puedes intentarlo nuevamente cuando creas que cumples lo reuisitos</span>
                       </div>
                     {% endif %}
+                    {% if user_debt.state == "Accepted" %}
+                    <div class="alert alert-warning">
+                      <span>
+                        <b> Felicitaciones- </b> Has aceptado los terminos del prestamo, en breve se te dara entrega del dinero en rappipay </span>
+                      </div>
+                    {% endif %}
 
                   </div>
                   <div class="stats">
                   <form action="" method="POST">
-                    <button type="submit" class="btn btn-primary pull-right" name="state" value="postulated debt.id">Aceptar</button>
+                    <button type="submit" class="btn btn-primary pull-right" name="state" value="accepted {{ user_debt.id }}">Aceptar</button>
                   </form>
                     &nbsp;
                     &nbsp;
                     &nbsp;
                     &nbsp;
                   <form method="POST" action="">
-                    <button type="submit" class="btn btn-primary-admin pull-right" name="state" value="rejected debt.id">Rechazar</button>
+                    <button type="submit" class="btn btn-primary-admin pull-right" name="state" value="rejected {{ user_debt.id }}">Rechazar</button>
                   </form>
                   </div>
                 </div>

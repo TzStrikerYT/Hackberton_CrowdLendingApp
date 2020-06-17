@@ -30,9 +30,11 @@ def before_request():
         g.user = sessionUser
 
 
-@app.route("/dashboard", strict_slashes=False)
+@app.route("/dashboard", methods=['GET', 'POST'], strict_slashes=False,)
 def home():
     """The template inside of the app"""
+    from models.debt import Debt
+
     if not g.user:
         return redirect(url_for('login'))
     else:
@@ -42,6 +44,18 @@ def home():
        
         if im_rt is None:
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
+
+        if request.method == "POST":
+            state = request.form['state']
+            stateAndDebt = state.split(" ")
+
+            debt = Debt.query.filter_by(user_id=stateAndDebt[1]).first()
+            if debt.state == "Accepted" or debt.state == "Rejected":
+                return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts, no_change=True)    
+
+            debt.confirmation(stateAndDebt[0])
+            debt.save()
+            return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
         
         return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
 

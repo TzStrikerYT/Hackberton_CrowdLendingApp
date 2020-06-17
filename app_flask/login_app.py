@@ -52,11 +52,13 @@ def home():
             debt = Debt.query.filter_by(user_id=stateAndDebt[1]).first()
             if debt.state == "Accepted" or debt.state == "Rejected":
                 return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts, no_change=True)    
+            elif debt.state == "Postulated":
+                debt.confirmation(stateAndDebt[0])
+                debt.save()
+                return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
 
-            debt.confirmation(stateAndDebt[0])
-            debt.save()
-            return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
-        
+        return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts, no_change=True)
+
         return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
 
 

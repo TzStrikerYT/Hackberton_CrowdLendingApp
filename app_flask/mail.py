@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8
 """ 
 Script para enviar un e-mail de registro, o de restauración de contraseña al usuario 
 """

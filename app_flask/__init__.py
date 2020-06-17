@@ -10,7 +10,7 @@ app.register_blueprint(invest, url_prefix="/invest")
 app.register_blueprint(admin, url_prefix="/admin")
 
 # Coneccion con la base de datos
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/rappilending_dev_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://rappilending_dev:RappiLending_Dev@localhost:3306/rappilending_dev_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'esto-es-una-clave-secreta'

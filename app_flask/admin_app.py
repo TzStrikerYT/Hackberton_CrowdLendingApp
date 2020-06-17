@@ -34,7 +34,7 @@ def new_debts():
             ownerAndDebt = state.split(" ")
     
             try:
-                rate = int(request.form['interest'])
+                rate = float(request.form['interest'])
                 n_pays = int(request.form['n_pays'])
 
             except:
@@ -47,6 +47,7 @@ def new_debts():
             debt = Debt.query.filter_by(user_id=ownerAndDebt[1]).first()
             debt.confirmation(ownerAndDebt[0], rate, n_pays)
             debt.save()
+            user_dict.pop(user.document)
 
             return render_template("admin.html", user_dict=user_dict)    
 

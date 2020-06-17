@@ -45,7 +45,7 @@ class User(db.Model):
             'reg_cod': self.reg_cod,
             'validated': self.validated            
             }
-        return dictionary
+        return str(dictionary)
 
     def save(self):
         """Save the new object into the data base"""

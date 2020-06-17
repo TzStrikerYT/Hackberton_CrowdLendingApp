@@ -39,10 +39,11 @@ def home():
         im_rt = session.get('message')
         username = session.get('username')
         userObject = user.User.query.filter_by(email=username).first()
+       
         if im_rt is None:
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
         
-        return render_template("dashboard.html", im_rt=im_rt)#, debt=userObject.debt)
+        return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
 
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)

@@ -116,6 +116,120 @@
           </div>
         </div>
       </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- div inversion jinja duplicate -->
+            <!-- for key, value in user_dict.items() 
+            for debt in value -->
+            {% for user_debt in debts %}
+            <div class="col-lg-12 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">work</i>
+                  </div>
+                  <p class="card-category">Solicitud</p>
+                  <h3 class="card-title" >{{ user_debt.debt }}</h3>
+                  <br>
+                  <p class="card-category">{{ user_debt.reason }}</p>
+                  <br>
+                  <!-- campos data -->
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Fecha</label>
+                        <input type="text" class="form-control" value="{{ user_debt.updated_at }}" disabled name="date_sol">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Numero de cuotas</label>
+                        <input type="number" class="form-control" disabled min="12" max="48" name="n_pays" maxlength="2" disbled value="{{ user_debt.fee_payment }}">
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Tasa de interes</label>
+                        <input disbaled type="number" step="0.1" min="2" max="3.7" class="form-control" name="interest" disabled value="{{ user_debt.interest_rate }}">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Valor de Cuota</label>
+                        <input type="number" class="form-control" name="fee_value" disabled value="{{ user_debt.fee_value }}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                
+                 <!-- fin campos data -->
+                </div>
+                <!-- Formulario de envio de data -->
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">card_membership</i> Solicitud N° {{ user_debt.id }}
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    {% if user_debt.state == "In progress" %}
+                    <div class="alert alert-warning">
+                      <span>
+                        <b> En Revisi&oacute;n- </b> En estos momentos estamos revisando tu solicitud </span>
+                      </div>
+                    {% endif %}
+                    {% if user_debt.state == "Postulated" %}
+                    <div class="alert alert-success">
+                      <span>
+                        <b> Postulado -</b> Tu solicitud ha sido postulada con los terminos que ves actualmente en pantalla(Tasa de interes, N&uacute;mero de cuotas, Valor de la cuota) si aceptas estos terminos tu solicitud sera aprobada, de lo contrario puedes rechazar esta solicitud </span>
+                      </div>
+                    {% endif %}
+                    {% if user_debt.state == "Rejected" %}
+                    <div class="alert alert-danger">
+                      <span>
+                        <b> RECHAZADA- </b> Tu solicitud ha sido rechazada, esto se debe a que al momento de revisar tu perfil no cumples con los estandares para aplicar a este credito, puedes intentarlo nuevamente cuando creas que cumples lo reuisitos</span>
+                      </div>
+                    {% endif %}
+
+                  </div>
+                  <div class="stats">
+                  <form action="" method="POST">
+                    <button type="submit" class="btn btn-primary pull-right" name="state" value="postulated debt.id">Aceptar</button>
+                  </form>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                  <form method="POST" action="">
+                    <button type="submit" class="btn btn-primary-admin pull-right" name="state" value="rejected debt.id">Rechazar</button>
+                  </form>
+                  </div>
+                </div>
+                <!-- fin formulario data -->
+              </div>
+            </div>
+            {% endfor %}
+            <!-- =======================end for ================== -->
+            <!-- ==================end for ======================= -->
+          </div>
+          <!-- end the jinja-->
+         <footer class="footer">
+         </footer>
+        </div>
+      </div>
+      <!-- ========================================= -->
       {% else %}
 
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">

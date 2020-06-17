@@ -30,10 +30,13 @@ def new_inversion():
         if im_rt is True:
             #Add here the code for generate debt with the API
             if request.method == "POST":
+                #if len(currentUser.debts) >= 1:
+                 #   return render_template("inversions.html", im_rt=im_rt, date=goodDate, error_maxDebt=True)
+
                 the_debt = request.form['cash']
                 reason = request.form['motive']
 
-                new_debt = Debt(debt=the_debt, reason=reason, owner=currentUser)
+                new_debt = Debt(debt=the_debt, reason=reason, owner=currentUser)                    
                 new_debt.save()
                 
                 return render_template("inversions.html", im_rt=im_rt, date=goodDate, error_inv=False)

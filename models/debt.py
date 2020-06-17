@@ -16,7 +16,7 @@ class Debt(db.Model):
     debt = db.Column(db.Integer, nullable=False) # Total de la deuda
     realtive_debt = db.Column(db.Float, default=0) #Deuda disminuida a capital
     
-    interest_rate = db.Column(db.Integer, default=0) # Tasa de interes
+    interest_rate = db.Column(db.Float, default=0) # Tasa de interes
     fee_payment = db.Column(db.Integer, default=0) # Cantidad de cuotas pactadas
     fee_value = db.Column(db.Float, default=0) # Valor de la cuota
     actual_fee_payment = db.Column(db.Integer, default=0) # Cuotas pagadas
@@ -59,20 +59,16 @@ class Debt(db.Model):
         """Put the state and the interes"""
         
         if confirm == "postulated":
-            self.state = "Postulate"
+            self.state = "Postulated"
             self.interest_rate = rate
             self.fee_payment = fee_payment
             goodRate = rate / 100
 
-            # Valor de la cuota (formula de interes compuesto
+            # Valor de la cuota (formula de interes compuesto)
             self.fee_value = (goodRate * self.debt) / (1 - (pow(1 + goodRate, (self.fee_payment * -1))))
-            return (0)
 
         if confirm == "rejected":
             self.state = "Rejected"
-            # If pass 1, this debt will be deleted
-            return (1)
 
         if confirm == "accept":
             self.state = "Acepted"
-            return (0)

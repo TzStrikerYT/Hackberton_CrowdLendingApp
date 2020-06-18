@@ -20,7 +20,7 @@
     {% else %}
     <div class="sidebar" data-color="rappi" data-background-color="white" data-image="../static/GUI/img/sidebar-1.jpg">  
     {% endif %}  
-      <div class="logo"><a href="./dashboard.html" class="simple-text logo-normal">
+      <div class="logo"><a href="./dashboard" class="simple-text logo-normal">
           Rappi Lending
         </a></div>
       <div class="sidebar-wrapper">
@@ -128,19 +128,33 @@
                 <p class="card-category">informaci&oacute;n Acerca de tus pagos</p>
               </div>
               <div class="card-body">
-                <form>
+                <form method="POST">
                   <div class="row">
                     <div class="col-md-5">
                       <div class="form-group">
                         <label class="bmd-label-floating">Fecha</label>
-                        <input type="text" class="form-control" disabled>
+                        <input type="text" class="form-control" disabled value="{{ date }}">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">ID deuda</label>
+                        <input type="text" class="form-control" name="id_deuda" value="{{ debt.id }}" disabled>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Deuda Relativa</label>
+                        <input type="text" class="form-control" name="actual_debt" value="{{ debt.realtive_debt }}" disabled>
                       </div>
                     </div>
                     <br>
                     <div class="col-md-5">
                       <div class="form-group">
                         <label class="bmd-label-floating">Monto</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="monto">
                       </div>
                     </div>
                     <br>

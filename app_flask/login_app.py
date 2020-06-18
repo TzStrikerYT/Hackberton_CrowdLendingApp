@@ -41,6 +41,12 @@ def home():
         im_rt = session.get('message')
         username = session.get('username')
         userObject = user.User.query.filter_by(email=username).first()
+
+        debts = []
+
+        for debt in userObject.debts:
+            if debt.state != "Payed":
+                debts.append(debt)
        
         if im_rt is None:
             return render_template("dashboard.html", im_rt=im_rt, inversions=userObject.inversions)
@@ -51,15 +57,15 @@ def home():
 
             debt = Debt.query.filter_by(user_id=stateAndDebt[1]).first()
             if debt.state == "Accepted" or debt.state == "Rejected":
-                return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts, no_change=True)    
+                return render_template("dashboard.html", im_rt=im_rt, debts=debts, no_change=True)    
             elif debt.state == "Postulated":
                 debt.confirmation(stateAndDebt[0])
                 debt.save()
-                return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
+                return render_template("dashboard.html", im_rt=im_rt, debts=debts)
 
-        return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts, no_change=True)
+        return render_template("dashboard.html", im_rt=im_rt, debts=debts, no_change=True)
 
-        return render_template("dashboard.html", im_rt=im_rt, debts=userObject.debts)
+        return render_template("dashboard.html", im_rt=im_rt, debts=debts)
 
 
 @app.route("/", methods=["GET", "POST"], strict_slashes=False)

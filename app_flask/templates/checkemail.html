@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>RappiLend - Registro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->	
+    <link rel="icon" type="image/png" href="../static/login/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/login/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/login/vendor/animate/animate.css">
+    <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="../static/login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/login/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="../static/login/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../static/login/css/register.css">
+    <!--===============================================================================================-->
+  </head>
+  <body>
+    <div class="limiter">
+      <div class="container-login100" style="background-image: url('../static/login/images/bg-01.jpg');">
+	<div class="wrap-login100">
+	  <span class="login100-form-logo">
+	    <img class="nice_logo" src="../static/login/images/hombre.svg">
+	  </span>
+	  <span class="login100-form-title p-b-34 p-t-27">
+	    Ingresa código confirmación
+	  </span>
+	  <div class="text-center p-t-10">
+	    <a class="txt1" >se ha enviado un correo a la dirección {{ email }} con el código para completar el registro.
+	      si después de 5 minutos no llega el código, puedes solicitar uno nuevo, recuerda revisar todas
+	      las bandejas, incluyendo Spam
+            </a>
+	  </div>
+	  <!-- CAPTURA -->
+	  <form action="" method="POST">
+	    <div class="wrap-input100 validate-input">
+	      <input maxlength="6" class="input100" type="text" name="regCode" placeholder="Código" value="{{request.form.regCode}}">
+	      <span class="focus-input100" data-placeholder="&#xf207;"></span>
+	    </div>
+	    
+	    {% if error %}
+	    <div class="alert alert-danger">
+				<span>
+				  <b> ERROR - </b> Codigo de confirmacion no coincide</span>
+			  </div>
+      {% elif r_msj %}
+      <div class="alert alert-success">
+				<span>
+				  <b> REALIZADO - </b> Se ha envado un nuevo codigo de confirmaci&oacute;n</span>
+			  </div>
+      {% endif %}
+
+
+      <div class="container-login100-form-btn">
+        <button class="login100-form-btn">
+          Confirmar C&oacute;digo
+        </button>
+      </div>
+      <br>
+    </form>
+    <form action="" method="POST"> 
+      <div class="container-login100-form-btn">
+        <button class="login100-form-btn" type="submit" name="Resend" value="{{request.form.ResendMail}}">
+          Reenviar C&oacute;digo
+        </button>
+      </div>
+    </form>
+  </div>
+      </div>
+    </div>
+	    
+	    
+	    
+	      <!--<div class="container-login100-form-btn">
+	      <button class="login100-form-btn">
+		      Confirmar Código
+	      </button>
+      </form>
+    </div>
+      <br>
+	    <form action="" method="POST">
+        <div class="container-login100-form-btn"></div>
+	      <button class="login100-form-btn" type="submit" name="Resend" value="{{request.form.ResendMail}}">
+	        Reenviar código
+        </button>
+      </div>
+      </form>
+	</div>
+      </div>
+    </div>-->
+   
+    <div id="dropDownSelect1"></div>	
+    <!--===============================================================================================-->
+    <script src="../static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================
+    <script src="../static/login/vendor/bootstrap/js/popper.js"></script>
+    <script src="../static/login/vendor/bootstrap/js/bootstrap.min.js"></script> 
+    <!--===============================================================================================-->
+    <script src="../static/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../static/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/login/js/main.js"></script>
+  </body>
+</html>

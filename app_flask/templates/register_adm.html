@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>RappiLend - Registro</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../static/login/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../static/login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../static/login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../static/login/css/register_adm.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('../static/login/images/bg-01.jpg');">
+		  <div class="wrap-login100">
+
+		    <span class="login100-form-logo">
+		      <img class="nice_logo" src="../static/login/images/bigote.svg">
+		    </span>
+
+		    <span class="login100-form-title p-b-34 p-t-27">
+		      GESTI&Oacute;N DE ADMINISTRADORES
+		    </span>
+		    <!-- CAPTURA -->
+		<form action="" method="POST">
+		    <div class="wrap-input100 validate-input">
+				<input maxlength="60" class="input100" type="text" name="names" placeholder="Nombres" value="{{request.form.names}}">
+				<span class="focus-input100" data-placeholder="&#xf207;"></span>
+		    </div>
+
+		    <div class="wrap-input100 validate-input">
+				<input maxlength="60" class="input100" type="text" name="lastNames" placeholder="Apellidos" value="{{request.form.lastNames}}">
+				<span class="focus-input100" data-placeholder="&#xf207;"></span>
+			</div>
+		    <div class="wrap-input100 validate-input">
+              	<input maxlength="255" class="input100" type="text" name="email" placeholder="Nombre de Usuario" value="{{request.form.username}}">
+                <span class="focus-input100" data-placeholder="&#xf207;"></span>
+        	</div>
+
+            <div class="wrap-input100 validate-input">
+                <input maxlength="255" class="input100" type="password" name="password" placeholder="Contraseña" value="{{request.form.password}}">
+                <span class="focus-input100" data-placeholder="&#xf191;"></span>
+            </div>
+		      <!-- <div class="contact100-form-checkbox">
+			   <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+			   <label class="label-checkbox100" for="ckb1">
+			     Remember me
+			   </label>
+		      </div> -->
+
+		      {% if error_params %}
+		      <h4>Por favor llene todos los campos</h4>
+		      {% endif %}
+		      {% if error_match %}
+		      <h4>Las contrasenas ingresadas no coinciden</h4>
+		      {% endif %}
+		      {% if error_exist %}
+			  <h4>El correo usando ya esta ligado a una cuenta</h4>
+			  {% endif %}
+			  {% if error_chr %}
+			  <div class="alert alert-danger">
+				<span>
+				  <b> ERROR - </b>Revise que el documento no contenga caracteres diferentes a caracteres numericos (Ingrese Unicamente Caracteres Numericos)</span>
+			  </div>
+		      {% endif %}
+
+		      <div class="container-login100-form-btn">
+			<button class="login100-form-btn">
+			  Registrar
+			</button>
+		      </div>
+		</form>
+
+		  </div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="../static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/login/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/login/vendor/bootstrap/js/popper.js"></script>
+	<script src="../static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/login/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/login/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../static/login/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/login/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/login/js/main.js"></script>
+
+</body>
+</html>

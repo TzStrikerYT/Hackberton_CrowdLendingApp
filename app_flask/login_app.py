@@ -113,6 +113,8 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Make the register"""
+    from models import user
+
     if request.method == "POST":
         names = request.form["names"]
         last_names = request.form["lastNames"]
@@ -151,10 +153,10 @@ def register():
             data = { 'name': names, 'last_name': last_names, 'code': keyGen }
             sendMail(tipo, email, data)
             md5Pwd = md5(password.encode('utf-8')).hexdigest()
-            try:
-                newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
-            except:
-                return render_template("register.html", error_data=True)
+            #try:
+            newUser = user.User(names, last_names, email, document, phone, md5Pwd, keyGen)
+            #except:
+             #   return render_template("register.html", error_data=True)
             newUser.save()
             session["name"] = names
             session["last_names"] = last_names

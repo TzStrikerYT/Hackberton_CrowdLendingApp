@@ -28,6 +28,8 @@ def new_debts():
                 if debt.state == "In progress":
                     user_dict[user.document].append(debt)
 
+        print(user_dict)
+
         if request.method == "POST":
             # Use the state to validate
             state = request.form['state']

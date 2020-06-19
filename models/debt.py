@@ -44,15 +44,18 @@ class Debt(db.Model):
         """Update the mountto pay"""
         
         if payment == self.fee_value:
-            self.interest_pay = goodRate / self.debt
+            self.interest_pay = self.interest_rate / self.realtive_debt
+            print("Este es el interes", self.interest_pay)
+            print(self.fee_value)
             self.capital_pay = self.fee_value - self.interest_pay
+            print(self.capital_pay)
 
             self.realtive_debt -= self.capital_pay
             self.updated_at = datetime.utcnow()
             self.actual_fee_payment += 1
 
         else:
-            print("La el valor cuota es incorrecta")
+            return "La el valor cuota es incorrecta"
     
     
     def confirmation(self, confirm, rate=0, fee_payment=0):
@@ -66,9 +69,14 @@ class Debt(db.Model):
 
             # Valor de la cuota (formula de interes compuesto)
             self.fee_value = (goodRate * self.debt) / (1 - (pow(1 + goodRate, (self.fee_payment * -1))))
+            print(self.fee_value)
 
         if confirm == "rejected":
             self.state = "Rejected"
 
         if confirm == "accepted":
+            self.realtive_debt = self.debt
             self.state = "Accepted"
+
+        if confirm == "payed":
+            self.state = "Payed"

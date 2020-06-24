@@ -85,7 +85,12 @@ def inversions():
         goodDate = date.strftime('%d-%m-%Y')
 
         currentUser = User.query.filter_by(email=session['username']).first()
-        debt = currentUser.debts[0]
+
+
+        if currentUser.debts != []:
+            debt = currentUser.debts[0]
+        else:
+            debt = None
 
         if request.method =="POST":
             pay = float(request.form['monto'].replace(",", "."))

@@ -29,6 +29,11 @@ def before_request():
             email=session['username']).first()
         g.user = sessionUser
 
+@app.route("/landing")
+def landing():
+    """Show the landing page"""
+    return render_template("index.html")
+
 
 @app.route("/dashboard", methods=['GET', 'POST'], strict_slashes=False,)
 def home():

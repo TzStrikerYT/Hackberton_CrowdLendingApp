@@ -193,18 +193,6 @@
                   </div>
                 </div>
               </div>
-              {% if error_fill == True %}
-                  <div class="alert alert-danger">
-                    <span>
-                      <b> Error - </b> Ingresa completamente a informaci&oacute;n</span>
-                  </div>
-                  {% endif %}
-              {% if error_fill == False %}
-                  <div class="alert alert-success">
-                    <span>
-                      <b> Realizado - </b> Prestamo Solicitado</span>
-                  </div>
-                  {% endif %}
               <div class="col-md-4">
                 <div class="card card-profile">
                   <div class="card-avatar">
@@ -224,6 +212,18 @@
                 </div>
               </div>
             </div>
+            {% if error_fill == True %}
+                  <div class="alert alert-danger">
+                    <span>
+                      <b> Error - </b> Ingresa completamente a informaci&oacute;n</span>
+                  </div>
+                  {% endif %}
+              {% if error_fill == False %}
+                  <div class="alert alert-success">
+                    <span>
+                      <b> Realizado - </b> Prestamo Solicitado</span>
+                  </div>
+                  {% endif %}
           </div>
         </div>
         {% else %}

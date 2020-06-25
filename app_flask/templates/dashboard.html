@@ -79,7 +79,12 @@
           </li>
           {% endif %}
           <!-- jinja wallet statement -->
-
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="material-icons">person</i>
+              <p>Cerrar Sesion</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -165,13 +170,15 @@
                     </div>
                   </div>
                   <div class="clearfix"></div>
+
+
                 
                  <!-- fin campos data -->
                 </div>
                 <!-- Formulario de envio de data -->
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">card_membership</i> Solicitud N° {{ user_debt.id }};
+                    <i class="material-icons">card_membership</i> Solicitud N° {{ user_debt.id }}
                   </div>
                   <div class="stats">
                   <form action="" method="POST">

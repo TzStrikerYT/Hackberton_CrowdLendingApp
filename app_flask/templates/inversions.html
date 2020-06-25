@@ -197,10 +197,16 @@
                       <b> Error - </b> Ingresa completamente a informaci&oacute;n</span>
                   </div>
                   {% endif %}
-              {% if error_fill == False %}
+              {% if error_fill == False and error_maxDebt == False %}
                   <div class="alert alert-success">
                     <span>
                       <b> Realizado - </b> Prestamo Solicitado</span>
+                  </div>
+                  {% endif %}
+                  {% if error_maxDebt == True %}
+                  <div class="alert alert-danger">
+                    <span>
+                      <b> Error - </b> Tienes una solicitud en curso o ya tienes un préstamo.</span>
                   </div>
                   {% endif %}
                 </div>

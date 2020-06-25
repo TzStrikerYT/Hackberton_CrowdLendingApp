@@ -12,7 +12,7 @@ class Debt(db.Model):
     __tablename__ = "debts"
 
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(60), primary_key=True, default=uuid.uuid4())
     debt = db.Column(db.Integer, nullable=False) # Total de la deuda
     realtive_debt = db.Column(db.Float, default=0) #Deuda disminuida a capital
     
@@ -30,7 +30,7 @@ class Debt(db.Model):
     
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.String(60), db.ForeignKey('users.id'), nullable=False)
     
 
     def save(self):

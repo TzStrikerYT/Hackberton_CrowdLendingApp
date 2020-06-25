@@ -188,6 +188,18 @@
                         </div>
                       </div>
                       <button type="submit" class="btn btn-primary pull-right">Enviar Solicitud</button>
+                      {% if error_fill == True %}
+                  <div class="alert alert-danger">
+                    <span>
+                      <b> Error - </b> Ingresa completamente a informaci&oacute;n</span>
+                  </div>
+                  {% endif %}
+              {% if error_fill == False %}
+                  <div class="alert alert-success">
+                    <span>
+                      <b> Realizado - </b> Prestamo Solicitado</span>
+                  </div>
+                  {% endif %}
                       <div class="clearfix"></div>
                     </form>
                   </div>
@@ -213,18 +225,6 @@
               </div>
             </div>
           </div>
-          {% if error_fill == True %}
-                  <div class="alert alert-danger">
-                    <span>
-                      <b> Error - </b> Ingresa completamente a informaci&oacute;n</span>
-                  </div>
-                  {% endif %}
-              {% if error_fill == False %}
-                  <div class="alert alert-success">
-                    <span>
-                      <b> Realizado - </b> Prestamo Solicitado</span>
-                  </div>
-                  {% endif %}
         </div>
 
         {% else %}

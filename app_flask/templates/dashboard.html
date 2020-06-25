@@ -193,13 +193,13 @@
                     {% if user_debt.state == "Postulated" %}
                     <div class="alert alert-success">
                       <span>
-                        <b> Postulado -</b> Tu solicitud ha sido postulada con los terminos que ves actualmente en pantalla(Tasa de interes, N&uacute;mero de cuotas, Valor de la cuota) si aceptas estos terminos tu solicitud sera aprobada, de lo contrario puedes rechazar esta solicitud </span>
+                        <b> Postulado -</b> Tu solicitud ha sido postulada, tu puedes aceptar o rechazar esta propuesta</span>
                       </div>
                     {% endif %}
                     {% if user_debt.state == "Rejected" %}
                     <div class="alert alert-danger">
                       <span>
-                        <b> RECHAZADA- </b> Tu solicitud ha sido rechazada, esto se debe a que al momento de revisar tu perfil no cumples con los estandares para aplicar a este credito, puedes intentarlo nuevamente cuando creas que cumples lo reuisitos</span>
+                        <b> RECHAZADA- </b>Tu solicitud ha sido rechazada debido  a que tu perfil no es optimo para este beneficio</span>
                       </div>
                     {% endif %}
                     {% if user_debt.state == "Accepted" %}
@@ -299,7 +299,7 @@
       </div>
       {% endif %}
     </div> 
-  </div>
+  </div>   
   <!--   Core JS Files   -->
   <script src="../static/GUI/js/core/jquery.min.js"></script>
   <script src="../static/GUI/js/core/popper.min.js"></script>

@@ -41,6 +41,12 @@ def new_inversion():
                 the_debt = request.form['cash']
                 reason = request.form['motive']
 
+                list = [the_debt, reason]
+
+                for i in list:
+                    if i is None:
+                        return render_template("inversions.html", im_rt=im_rt, date=goodDate, error_fill=True)
+
                 new_debt = Debt(debt=the_debt, reason=reason, owner=currentUser)                    
                 new_debt.save()
                 

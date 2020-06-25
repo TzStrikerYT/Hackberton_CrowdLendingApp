@@ -171,45 +171,32 @@
                 <!-- Formulario de envio de data -->
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">card_membership</i> Solicitud N° {{ user_debt.id }}
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    {% if user_debt.state == "In progress" %}
-                    <div class="alert alert-warning">
-                      <span>
-                        <b> En Revisi&oacute;n- </b> En estos momentos estamos revisando tu solicitud </span>
-                      </div>
-                    {% endif %}
-                    {% if user_debt.state == "Postulated" %}
-                    <div class="alert alert-success">
-                      <span>
-                        <b> Postulado -</b> Tu solicitud ha sido postulada, tu puedes aceptar o rechazar esta propuesta</span>
-                      </div>
-                    {% endif %}
-                    {% if user_debt.state == "Rejected" %}
-                    <div class="alert alert-danger">
-                      <span>
-                        <b> RECHAZADA- </b>Tu solicitud ha sido rechazada debido  a que tu perfil no es optimo para este beneficio</span>
-                      </div>
-                    {% endif %}
-                    {% if user_debt.state == "Accepted" %}
-                    <div class="alert alert-warning">
-                      <span>
-                        <b> Felicitaciones- </b> Has aceptado los terminos del prestamo, en breve se te dara entrega del dinero en rappipay </span>
-                      </div>
-                    {% endif %}
-
+                    <i class="material-icons">card_membership</i> Solicitud N° {{ user_debt.id }};
                   </div>
+                  {% if user_debt.state == "In progress" %}
+                  <div class="alert alert-warning">
+                    <span>
+                      <b> En Revisi&oacute;n- </b> En estos momentos estamos revisando tu solicitud </span>
+                    </div>
+                  {% endif %}
+                  {% if user_debt.state == "Postulated" %}
+                  <div class="alert alert-success">
+                    <span>
+                      <b> Postulado -</b> Tu solicitud ha sido postulada, tu puedes aceptar o rechazar esta propuesta</span>
+                    </div>
+                  {% endif %}
+                  {% if user_debt.state == "Rejected" %}
+                  <div class="alert alert-danger">
+                    <span>
+                      <b> RECHAZADA- </b>Tu solicitud ha sido rechazada debido  a que tu perfil no es optimo para este beneficio</span>
+                    </div>
+                  {% endif %}
+                  {% if user_debt.state == "Accepted" %}
+                  <div class="alert alert-warning">
+                    <span>
+                      <b> Felicitaciones- </b> Has aceptado los terminos del prestamo, en breve se te dara entrega del dinero en rappipay </span>
+                    </div>
+                  {% endif %}
                   <div class="stats">
                   <form action="" method="POST">
                     <button type="submit" class="btn btn-primary pull-right" name="state" value="accepted {{ user_debt.id }}">Aceptar</button>

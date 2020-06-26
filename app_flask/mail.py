@@ -34,3 +34,4 @@ def sendMail(tipo, destino, data):
     except Exception as error:
         print(error)
         
+

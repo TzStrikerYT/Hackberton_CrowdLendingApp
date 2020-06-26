@@ -5,7 +5,7 @@ Script para enviar un e-mail de registro, o de restauración de contraseña al u
 """
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-
+import os
 
 def sendMail(tipo, destino, data):
     """ 
@@ -26,7 +26,7 @@ def sendMail(tipo, destino, data):
         }
     message.template_id = 'd-d8285dc4e2a1417890ad340d2575d687'
     try:
-        sg = SendGridAPIClient('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')
+        sg = SendGridAPIClient(os.getenv(PRIVATEKEY))
         response = sg.send(message)
         print(response.status_code)
 #        print(response.body)

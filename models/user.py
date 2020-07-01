@@ -5,12 +5,13 @@ Create the user of the APP
 from app_flask import db
 from models.inversion import Inversion
 from datetime import datetime
+from uuid import uuid4
 
 class User(db.Model):
     """Class to make the querys to the database"""
     __tablename__ = 'users'
     
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(60), primary_key=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow() )
     first_name = db.Column(db.String(60), nullable=False)
     last_name = db.Column(db.String(60), nullable=False)
@@ -26,6 +27,7 @@ class User(db.Model):
 
     def __init__(self, first_name, last_name, email, document, phone, pwd, keyGen=''):
         """Set the columns in atributes"""
+        self.id = str(uuid4())
         self.first_name = first_name
         self.last_name = last_name
         self.email = email

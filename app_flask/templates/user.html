@@ -20,7 +20,7 @@
     {% else %}
     <div class="sidebar" data-color="rappi" data-background-color="white" data-image="../static/GUI/img/sidebar-1.jpg">  
     {% endif %}  
-      <div class="logo"><a href="./dashboard.html" class="simple-text logo-normal">
+      <div class="logo"><a href="/dashboard" class="simple-text logo-normal">
           Rappi Lending
         </a></div>
       <div class="sidebar-wrapper">
@@ -78,6 +78,12 @@
           </li>
           {% endif %}
           <!-- jinja wallet statement -->
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="material-icons">person</i>
+              <p>Cerrar Sesion</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
